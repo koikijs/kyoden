@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 import config from '../config';
+import styles from '../css/app.less';
 
 const App = props =>
-  <div>
+  <div className={styles.app}>
     {props.children}
     <Helmet {...config.app.head} title="kyoden" />
   </div>;

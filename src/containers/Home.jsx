@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { stringify } from 'koiki';
 import Signature from '../components/Signature';
-import uris from '../uris';
 
 const Home = (props, context) =>
   <div>
     <Signature
       lead={context.i18n.lead}
-      link={stringify(uris.pages.people, { lang: context.lang })}
+      sublead={context.i18n.sublead}
+      onEventSubmit={(values) => {
+        context.fetcher.event.save(values)
+          .then(({ res }) => {
+            console.log(res.headers.get('location'));
+          });
+      }}
     />
   </div>;
 

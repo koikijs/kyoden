@@ -1,0 +1,39 @@
+@import "../../../node_modules/koiki-ui/less/inputtable-button.less";
+@import "../variables.less";
+
+.container{
+  padding: 1.75em 0;
+}
+
+.primary, .button {
+  color: @light-secondary;
+}
+
+.escaped,
+.clicked,
+.escaped .button,
+.clicked .button,
+.escaped .input,
+.clicked .input{
+  animation: none;
+}
+
+.clicked .button{
+  display: none;
+}
+.clicked .input{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+  border-radius: 0;
+}
+
+.input:focus {
+  color: @dark-secondary;
+  border-color: @dark-secondary;
+}
+
+.input:focus + .prefix{
+  color: @dark-secondary;
+}

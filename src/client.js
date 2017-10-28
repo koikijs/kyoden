@@ -13,5 +13,7 @@ client({
   urls,
   reducers,
   routes,
-  isDevelopment: __DEVELOPMENT__
+  isDevelopment: __DEVELOPMENT__,
+  wsUrl: 'ws://192.168.0.4:8080/gs-guide-websocket',
+  // wsUrl: 'ws://192.168.0.4:8080/gs-guide-websocket/106/zdwpzhbk/websocket',
 });

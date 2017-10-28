@@ -1,30 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { InputtableButton } from 'koiki-ui';
 
 const styles = require('../css/signature.less');
-const src = require('../images/logo.png');
+const ui = {
+  // eslint-disable-next-line global-require
+  inputtableButton: require('../css/koiki-ui/inputtable-button.less'),
+  // eslint-disable-next-line global-require
+  fa: require('../../node_modules/koiki-ui/less/fa/less/font-awesome.less'),
+};
 
 const Signature = props =>
-  <header
-    className={styles.signature}
+  <form
+    onSubmit={(event) => {
+      event.preventDefault();
+    }}
   >
-    <Link
-      className={styles.link}
-      to={props.link}
+    <header
+      className={styles.signature}
     >
-      <img
-        alt="logo"
-        className={styles.logo}
-        src={src}
-      />
-      <h1>{props.lead}</h1>
-    </Link>
-  </header>;
+      <h1 className={styles.lead} >{props.lead}</h1>
+      <h2 className={styles.sublead} >{props.sublead}</h2>
+      <div className={styles.button}>
+        <InputtableButton
+          styles={ui}
+          text="Create Event"
+          icon="fa-pencil"
+          onSubmit={(evt) => {
+            props.onEventSubmit({
+              name: evt.target.value,
+            });
+          }}
+        />
+      </div>
+    </header>
+  </form>;
 
 Signature.propTypes = {
   lead: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired
+  sublead: PropTypes.string.isRequired,
+  onEventSubmit: PropTypes.func.isRequired,
 };
 
 export default Signature;

@@ -21,8 +21,8 @@ module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: Number(process.env.PORT || 3000),
   api: {
-    host: 'chaus.herokuapp.com',
-    port: Number('443')
+    host: '192.168.0.4',
+    port: Number('8080')
   },
   app: {
     base,
@@ -49,7 +49,7 @@ module.exports = Object.assign({
     statics: {
       link: [
         { rel: 'shortcut icon', href: '/images/favicon.png' },
-        { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Graduate|Telex|Metrophobic', },
+        { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Roboto', },
         { rel: 'stylesheet', type: 'text/css', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' },
         { rel: 'stylesheet', type: 'text/css', href: '/css/normalize.css' }
       ]

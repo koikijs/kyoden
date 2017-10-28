@@ -1,0 +1,62 @@
+{
+  "name": "kyoden",
+  "title": "kyoden",
+  "description": "kyoden",
+  "author": "koiki",
+  "license": "MIT",
+  "version": "1.0.0",
+  "repository": {
+  },
+  "keywords": [
+    "kyoden"
+  ],
+  "main": "bin/server.js",
+  "scripts": {
+    "start": "koiki-start",
+    "build": "koiki-build",
+    "postinstall": "npm run build",
+    "lint": "eslint -c .eslintrc src",
+    "dev": "koiki-dev"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "babel-polyfill": "^6.3.14",
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "history": "1.13.1",
+    "isomorphic-fetch": "^2.2.0",
+    "jsx-loader": "^0.13.2",
+    "koiki": "^6.1.0",
+    "lodash": "^4.17.2",
+    "moment": "^2.10.6",
+    "pretty-error": "^1.2.0",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-fastclick": "^2.1.0",
+    "react-helmet": "^2.3.1",
+    "react-redux": "^4.0.0",
+    "react-router": "^2.8.1",
+    "react-router-redux": "^4.0.4",
+    "react-swipeable": "^3.6.0",
+    "redux": "^3.0.4",
+    "redux-connect": "^3.0.0",
+    "redux-router": "1.0.0-beta5",
+    "serve-favicon": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "eslint": "^3.6.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.4.1",
+    "react-addons-test-utils": "^15.3.2"
+  },
+  "engines": {
+    "node": "7.4.0"
+  }
+}

@@ -1,6 +1,6 @@
 export default {
   pages: {
     root: '/:lang',
-    people: '/:lang/people'
+    event: '/:lang/events/:id'
   }
 };

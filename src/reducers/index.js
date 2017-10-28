@@ -1,5 +1,7 @@
-import person from './person';
+import scrooge from './scrooge';
+import event from './event';
 
 export default {
-  person
+  event,
+  scrooge
 };

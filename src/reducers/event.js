@@ -1,7 +1,7 @@
 
-const GETS_START = 'person/GETS_START';
-const GETS_SUCCESS = 'person/GETS_SUCCESS';
-const GETS_FAIL = 'person/GETS_FAIL';
+const GETS_START = 'event/GETS_START';
+const GETS_SUCCESS = 'event/GETS_SUCCESS';
+const GETS_FAIL = 'event/GETS_FAIL';
 
 const initialState = {
   items: [],

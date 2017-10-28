@@ -3,20 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 
-import List from '../components/List';
-
-const People = props =>
+const Event = props =>
   <div>
-    <List
-      items={props.people}
-    />
+    <div {...props} />
   </div>;
 
-People.propTypes = {
-  people: PropTypes.array.isRequired
+Event.propTypes = {
+  scrooges: PropTypes.array.isRequired,
 };
 
-People.contextTypes = {
+Event.contextTypes = {
   lang: PropTypes.string.isRequired,
   fetcher: PropTypes.object.isRequired,
   i18n: PropTypes.object.isRequired
@@ -24,15 +20,14 @@ People.contextTypes = {
 
 const connected = connect(
   state => ({
-    people: state.person.items
+    scrooges: state.scrooge.items
   }),
   () => ({})
-)(People);
+)(Event);
 
 const asynced = asyncConnect([{
-  promise: ({ helpers: { fetcher } }) => {
+  promise: () => {
     const promises = [];
-    promises.push(fetcher.person.gets());
     return Promise.all(promises);
   }
 }])(connected);

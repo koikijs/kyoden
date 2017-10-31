@@ -24,6 +24,9 @@ module.exports = Object.assign({
     host: '192.168.0.4',
     port: Number('8080')
   },
+  ws: {
+    origin: 'localhost:8080',
+  },
   app: {
     base,
     host: appHost,

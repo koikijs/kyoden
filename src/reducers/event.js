@@ -1,28 +1,28 @@
 
-const GETS_START = 'event/GETS_START';
-const GETS_SUCCESS = 'event/GETS_SUCCESS';
-const GETS_FAIL = 'event/GETS_FAIL';
+const GET_START = 'event/GET_START';
+const GET_SUCCESS = 'event/GET_SUCCESS';
+const GET_FAIL = 'event/GET_FAIL';
 
 const initialState = {
-  items: [],
+  item: {},
   loaded: false,
   loading: false
 };
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case GETS_START:
+    case GET_START:
       return {
         ...state,
         loading: true
       };
-    case GETS_SUCCESS:
+    case GET_SUCCESS:
       return {
         ...state,
         loading: false,
         loaded: true,
-        items: action.body.items
+        item: action.body.item
       };
-    case GETS_FAIL:
+    case GET_FAIL:
       return {
         ...state,
         loading: false,
@@ -32,4 +32,15 @@ export default function reducer(state = initialState, action = {}) {
     default:
       return state;
   }
+}
+
+export function get(item) {
+  return {
+    type: GET_SUCCESS,
+    action: {
+      body: {
+        item
+      }
+    }
+  };
 }

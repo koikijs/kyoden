@@ -43,6 +43,7 @@ const AddPayment = props =>
       <Input
         styles={ui}
         icon="fa-money"
+        type="number"
         value={props.scrooge.paidAmount}
         onChange={
           event => props.onInputPayment({

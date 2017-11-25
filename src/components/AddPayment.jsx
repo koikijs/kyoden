@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'koiki-ui';
+import { Input, Selectbox } from 'koiki-ui';
 
 const styles = require('../css/add-payment.less');
 const ui = {
@@ -8,6 +8,8 @@ const ui = {
   fa: require('../../node_modules/koiki-ui/less/fa/less/font-awesome.less'),
   // eslint-disable-next-line global-require
   input: require('../css/koiki-ui/light-input.less'),
+  // eslint-disable-next-line global-require
+  selectbox: require('../css/koiki-ui/light-selectbox.less'),
 };
 
 const AddPayment = props =>
@@ -15,20 +17,38 @@ const AddPayment = props =>
     className={styles.addPayment}
   >
     <div className={styles.column} >
-      <select>
-        {props.members.map(member =>
-          <option key={member.id} value={member.id} >{member.name}</option>
-        )}
-      </select>
+      <Selectbox
+        styles={ui}
+        onSelect={
+          option => props.onInputPayment({
+            memberName: option.value
+          })
+        }
+        selected={
+          props.members.find(member => member.name === props.scrooge.memberName) ||
+            {
+              text: props.members[0].name,
+              value: props.members[0].id,
+            }
+        }
+        options={
+          props.members.map(member => ({
+            text: member.name,
+            value: member.id,
+          }))
+        }
+      />
     </div>
     <div className={styles.column} >
       <Input
         styles={ui}
         icon="fa-money"
         value={props.scrooge.paidAmount}
-        onChange={event => props.onInputPayment({
-          paidAmount: event.target.value,
-        })}
+        onChange={
+          event => props.onInputPayment({
+            paidAmount: event.target.value,
+          })
+        }
         onSubmit={props.onSubmitPayment}
       />
     </div>
@@ -37,9 +57,11 @@ const AddPayment = props =>
         styles={ui}
         icon="fa-commenting-o"
         value={props.scrooge.forWhat}
-        onChange={event => props.onInputPayment({
-          forWhat: event.target.value,
-        })}
+        onChange={
+          event => props.onInputPayment({
+            forWhat: event.target.value,
+          })
+        }
         onSubmit={props.onSubmitPayment}
       />
     </div>

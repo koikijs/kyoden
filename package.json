@@ -29,7 +29,7 @@
     "isomorphic-fetch": "^2.2.0",
     "jsx-loader": "^0.13.2",
     "koiki": "^6.2.0",
-    "koiki-ui": "0.0.66",
+    "koiki-ui": "0.0.67",
     "lodash": "^4.17.2",
     "moment": "^2.10.6",
     "pretty-error": "^1.2.0",

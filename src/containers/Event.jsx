@@ -19,7 +19,7 @@ class Event extends Component {
   componentDidMount() {
     this.ws = ws({
       url: `wss://${config.ws.origin}/?${this.props.params.id}`,
-      onmessage: json => this.props.get(json),
+      // onmessage: json => this.props.get(json),
     });
   }
   componentWillUnmount() {
@@ -45,7 +45,6 @@ class Event extends Component {
               memberName: member.name,
             })}
           />
-          <AggregatePayments aggPaidAmount={this.props.aggPaidAmount} />
           <AddPayment
             scrooge={this.props.scrooge}
             members={this.props.members}
@@ -55,6 +54,7 @@ class Event extends Component {
               ...this.props.scrooge,
             })}
           />
+          <AggregatePayments aggPaidAmount={this.props.aggPaidAmount} />
         </Panel>
         <Panel side="right">
           <TransferPayments transferAmounts={this.props.transferAmounts} />

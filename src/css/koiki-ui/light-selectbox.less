@@ -1,0 +1,39 @@
+@import "../../../node_modules/koiki-ui/less/selectbox.less";
+@import "../variables.less";
+
+.selectbox{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+  border-radius: 0;
+  border-color: @light-primary;
+}
+
+
+.selectbox:focus .caset{
+	color: @light-secondary;
+}
+
+.options {
+  border-top: 2px solid @light-primary;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  background-color: @light;
+}
+
+.option {
+  color: @light-primary;
+  background: none;
+}
+
+.option.focused,
+.option:hover {
+  color: @light;
+  background-color: @light-secondary;
+}
+
+.option:hover{
+  opacity: 0.8;
+}

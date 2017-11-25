@@ -20,16 +20,19 @@ export default {
     add: {
       url: `${base}/events/:id/scrooges`,
       method: 'POST',
+      mode: 'cors',
       credentials: 'include'
     },
     update: {
       url: `${base}/scrooges/:id`,
       method: 'PATCH',
+      mode: 'cors',
       credentials: 'include'
     },
     delete: {
       url: `${base}/scrooges`,
       method: 'DELETE',
+      mode: 'cors',
       credentials: 'include'
     },
   },

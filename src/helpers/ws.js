@@ -1,5 +1,5 @@
 
-export default function wsFn({ url }) {
+export default function wsFn({ url, onmessage = () => {} }) {
   const WebSocket = window.WebSocket || window.MozWebsocket;
   if (!WebSocket) {
     console.log('WebSocket is not defined');
@@ -7,14 +7,15 @@ export default function wsFn({ url }) {
   }
   const ws = new WebSocket(url);
   const listener = {
+    onmessage,
     close: () => ws.close()
   };
 
   ws.onopen = () => {
     console.log('connected!');
     ws.onmessage = (msg) => {
-      const json = JSON.parse(msg);
-      listener.onmessage = fn => fn(json);
+      const json = JSON.parse(msg.data);
+      listener.onmessage(json);
     };
   };
 

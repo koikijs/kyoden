@@ -2,8 +2,10 @@
 const GETS_START = 'scrooge/GETS_START';
 const GETS_SUCCESS = 'scrooge/GETS_SUCCESS';
 const GETS_FAIL = 'scrooge/GETS_FAIL';
+const INPUT = 'scrooge/INPUT';
 
 const initialState = {
+  item: {},
   items: [],
   loaded: false,
   loading: false
@@ -29,7 +31,22 @@ export default function reducer(state = initialState, action = {}) {
         loaded: false,
         error: action.err
       };
+    case INPUT:
+      return {
+        ...state,
+        item: {
+          ...state.item,
+          ...action.scrooge,
+        }
+      };
     default:
       return state;
   }
+}
+
+export function input(scrooge) {
+  return {
+    type: INPUT,
+    scrooge,
+  };
 }

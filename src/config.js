@@ -21,11 +21,12 @@ module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: Number(process.env.PORT || 3000),
   api: {
-    host: '192.168.0.4',
-    port: Number('8080')
+    host: 'koiki-scrooge.herokuapp.com',
+    port: 443
   },
   ws: {
-    origin: 'localhost:8080',
+    origin: 'koiki-scrooge.herokuapp.com',
+    port: 443,
   },
   app: {
     base,

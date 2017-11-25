@@ -13,7 +13,7 @@ export default {
       url: `${base}/events`,
       method: 'POST',
       mode: 'cors',
-      credentials: 'include'
+      credentials: 'include',
     },
   },
   scrooge: {
@@ -28,7 +28,7 @@ export default {
       credentials: 'include'
     },
     delete: {
-      url: `${base}/scrooges/:id`,
+      url: `${base}/scrooges`,
       method: 'DELETE',
       credentials: 'include'
     },

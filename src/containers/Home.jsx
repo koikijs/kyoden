@@ -17,8 +17,9 @@ const Home = (props, context) =>
             // TODO change way to get id
             // koiki better to fetch URL if location header has response.
             // then the body need to pass in callback
-            const id = res.headers.get('location').match(/\/events\/(.+)$/);
-            push(stringify(uris.pages.event, { lang: context.lang, id }));
+            console.log(res, res.headers, res.headers.values());
+            const id = res.headers.get('location').match(/\/events\/(.+)$/)[1];
+            props.push(stringify(uris.pages.event, { lang: context.lang, id }));
           });
       }}
     />
@@ -27,7 +28,11 @@ const Home = (props, context) =>
 Home.contextTypes = {
   lang: PropTypes.string.isRequired,
   fetcher: PropTypes.object.isRequired,
-  i18n: PropTypes.object.isRequired
+  i18n: PropTypes.object.isRequired,
+};
+
+Home.propTypes = {
+  push: PropTypes.func.isRequired,
 };
 
 const connected = connect(

@@ -4,7 +4,29 @@ const GET_SUCCESS = 'event/GET_SUCCESS';
 const GET_FAIL = 'event/GET_FAIL';
 
 const initialState = {
-  item: {},
+  item: {
+    name: 'koicam',
+    aggPaidAmount: [
+      {
+        memberName: 'nabnab',
+        paidAmount: 200,
+      },
+      {
+        memberName: 'sideroad',
+        paidAmount: 5000,
+      },
+      {
+        memberName: 'taka66',
+        paidAmount: 14000,
+      },
+      {
+        memberName: 'ninja-inc',
+        paidAmount: 3000,
+      }
+    ],
+    scrooges: [],
+    transferAmounts: [],
+  },
   loaded: false,
   loading: false
 };
@@ -37,10 +59,8 @@ export default function reducer(state = initialState, action = {}) {
 export function get(item) {
   return {
     type: GET_SUCCESS,
-    action: {
-      body: {
-        item
-      }
+    body: {
+      item
     }
   };
 }

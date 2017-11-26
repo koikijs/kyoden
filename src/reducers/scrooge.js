@@ -3,6 +3,7 @@ const GETS_START = 'scrooge/GETS_START';
 const GETS_SUCCESS = 'scrooge/GETS_SUCCESS';
 const GETS_FAIL = 'scrooge/GETS_FAIL';
 const INPUT = 'scrooge/INPUT';
+const EVENT_GET_SUCCESS = 'event/GET_SUCCESS';
 
 const initialState = {
   item: {},
@@ -23,6 +24,13 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: true,
         items: action.body.items
+      };
+    case EVENT_GET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        items: action.body.item.scrooges,
       };
     case GETS_FAIL:
       return {

@@ -1,0 +1,29 @@
+@import "variables.less";
+
+.table {
+  width: 70%;
+  font-size: 1.25em;
+  line-height: 1.5em;
+  border-collapse: separate;
+  border-spacing: 1em;
+  color: @light-primary;
+}
+
+.name {
+  border-bottom: 2px solid @light-primary;
+  margin-right: 10%;
+  text-align: right;
+}
+
+.trash {
+  background: none;
+  border: none;
+  color: @light-primary;
+  outline: none;
+}
+
+.trash:hover{
+  transition: color;
+  transition-duration: 0.2s;
+  color: @light-secondary;
+}

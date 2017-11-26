@@ -15,7 +15,7 @@ const TransferPayments = props =>
   </div>;
 
 TransferPayments.propTypes = {
-  transferAmounts: PropTypes.string.isRequired
+  transferAmounts: PropTypes.array.isRequired
 };
 
 export default TransferPayments;

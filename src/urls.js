@@ -29,8 +29,14 @@ export default {
       mode: 'cors',
       credentials: 'include'
     },
-    delete: {
+    bulkRemove: {
       url: `${base}/scrooges`,
+      method: 'DELETE',
+      mode: 'cors',
+      credentials: 'include'
+    },
+    remove: {
+      url: `${base}/scrooges/:id`,
       method: 'DELETE',
       mode: 'cors',
       credentials: 'include'

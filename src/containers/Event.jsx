@@ -9,7 +9,7 @@ import { changeInputName } from '../reducers/member';
 import { input as inputScrooge } from '../reducers/scrooge';
 import Panel from '../components/Panel';
 import Members from '../components/Members';
-import AggregatePayments from '../components/AggregatePayments';
+import Scrooges from '../components/Scrooges';
 import AddPayment from '../components/AddPayment';
 import TransferPayments from '../components/TransferPayments';
 
@@ -19,7 +19,7 @@ class Event extends Component {
   componentDidMount() {
     this.ws = ws({
       url: `wss://${config.ws.origin}/?${this.props.params.id}`,
-      // onmessage: json => this.props.get(json),
+      onmessage: json => this.props.get(json),
     });
   }
   componentWillUnmount() {
@@ -41,7 +41,7 @@ class Event extends Component {
               memberName: member.name,
               paidAmount: 0,
             })}
-            onDeleteMember={member => this.context.fetcher.scrooge.delete({
+            onDeleteMember={member => this.context.fetcher.scrooge.bulkRemove({
               memberName: member.name,
             })}
           />
@@ -54,7 +54,12 @@ class Event extends Component {
               ...this.props.scrooge,
             })}
           />
-          <AggregatePayments aggPaidAmount={this.props.aggPaidAmount} />
+          <Scrooges
+            scrooges={this.props.scrooges}
+            onDeleteScrooge={scrooge => this.context.fetcher.scrooge.remove({
+              id: scrooge.id
+            })}
+          />
         </Panel>
         <Panel side="right">
           <TransferPayments transferAmounts={this.props.transferAmounts} />
@@ -66,7 +71,6 @@ class Event extends Component {
 
 Event.propTypes = {
   eventName: PropTypes.string.isRequired,
-  aggPaidAmount: PropTypes.array.isRequired,
   transferAmounts: PropTypes.array.isRequired,
   params: PropTypes.object.isRequired,
   get: PropTypes.func.isRequired,
@@ -75,6 +79,7 @@ Event.propTypes = {
   members: PropTypes.array.isRequired,
   suggests: PropTypes.array.isRequired,
   scrooge: PropTypes.object.isRequired,
+  scrooges: PropTypes.array.isRequired,
 };
 
 Event.contextTypes = {
@@ -87,10 +92,11 @@ const connected = connect(
   state => ({
     eventName: state.event.item.name,
     aggPaidAmount: state.event.item.aggPaidAmount,
-    transferAmounts: state.event.item.transferAmounts,
+    transferAmounts: state.event.item.transferAmounts || [],
     members: state.member.items,
     suggests: state.member.suggests,
     scrooge: state.scrooge.item,
+    scrooges: state.scrooge.items,
   }),
   {
     get,

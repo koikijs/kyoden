@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const GETS_START = 'member/GETS_START';
-const EVENT_GET_SUCCESS = 'event/GETS_SUCCESS';
+const EVENT_GET_SUCCESS = 'event/GET_SUCCESS';
 const GETS_FAIL = 'member/GETS_FAIL';
 const CHANGE_INPUT_NAME = 'member/CHANGE_INPUT_NAME';
 
@@ -28,7 +28,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        items: _.uniq(action.body.item.aggPaidAmount
+        items: _.uniq(action.body.item.scrooges
           .filter(amount => amount.paidAmount === 0)
           .map(amount => ({
             id: amount.memberName,

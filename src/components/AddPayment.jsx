@@ -44,7 +44,8 @@ const AddPayment = props =>
         styles={ui}
         icon="fa-money"
         type="number"
-        value={props.scrooge.paidAmount}
+        align="right"
+        value={props.scrooge.paidAmount || 0}
         onChange={
           event => props.onInputPayment({
             paidAmount: event.target.value,

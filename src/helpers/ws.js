@@ -11,16 +11,22 @@ export default function wsFn({ url, onmessage = () => {} }) {
     close: () => ws.close()
   };
 
+  let interval;
+
   ws.onopen = () => {
     console.log('connected!');
     ws.onmessage = (msg) => {
       const json = JSON.parse(msg.data);
       listener.onmessage(json);
     };
+    interval = setInterval(() => {
+      ws.send('KEEPALIVE');
+    }, 5000);
   };
 
   ws.onclose = (...args) => {
     console.log(args);
+    clearInterval(interval);
   };
   return listener;
 }

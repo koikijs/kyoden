@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        items: action.body.item.scrooges,
+        items: action.body.item.scrooges.filter(scrooge => scrooge.paidAmount),
       };
     case GETS_FAIL:
       return {

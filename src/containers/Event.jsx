@@ -8,6 +8,7 @@ import { get } from '../reducers/event';
 import { changeInputName } from '../reducers/member';
 import { input as inputScrooge } from '../reducers/scrooge';
 import Panel from '../components/Panel';
+import Title from '../components/Title';
 import Members from '../components/Members';
 import Scrooges from '../components/Scrooges';
 import AddPayment from '../components/AddPayment';
@@ -29,9 +30,11 @@ class Event extends Component {
     return (
       <div className={styles.panels} >
         <Panel side="left">
-          <div className={styles.name}>
-            {this.props.eventName}
-          </div>
+          <Title
+            title={this.props.eventName}
+            theme="black"
+            align="left"
+          />
           <Members
             suggests={this.props.suggests}
             members={this.props.members}
@@ -42,6 +45,7 @@ class Event extends Component {
               paidAmount: 0,
             })}
             onDeleteMember={member => this.context.fetcher.scrooge.bulkRemove({
+              id: this.props.params.id,
               memberName: member.name,
             })}
           />
@@ -57,11 +61,17 @@ class Event extends Component {
           <Scrooges
             scrooges={this.props.scrooges}
             onDeleteScrooge={scrooge => this.context.fetcher.scrooge.remove({
-              id: scrooge.id
+              id: this.props.params.id,
+              scrooge: scrooge.id
             })}
           />
         </Panel>
         <Panel side="right">
+          <Title
+            title={this.props.eventName}
+            theme="white"
+            align="right"
+          />
           <TransferPayments transferAmounts={this.props.transferAmounts} />
         </Panel>
       </div>

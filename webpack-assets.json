@@ -1,6 +1,6 @@
 {
   "javascript": {
-    "main": "http://localhost:3001/dist/main-2f18333c8aa6cc384896.js"
+    "main": "http://localhost:3001/dist/main-2ba1fd0034331351759e.js"
   },
   "styles": {},
   "assets": {
@@ -835,7 +835,7 @@
     "./src/css/event.less": {
       "panels": "panels___2W5I-",
       "name": "name___3i3_G",
-      "_style": ".panels___2W5I- {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  width: 100%;\n  height: 100%;\n}\n.name___3i3_G {\n  font-size: 3em;\n  margin: 1em;\n  color: #335046;\n}\n"
+      "_style": ".panels___2W5I- {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  width: 100%;\n  height: 100%;\n}\n.name___3i3_G {\n  font-size: 3em;\n  margin: 1em;\n  color: #335046;\n}\n@media (max-width: 768px) {\n  .panels___2W5I- {\n    flex-direction: column;\n  }\n}\n"
     },
     "./src/css/koiki-ui/chips.less": {
       "hasSuggest": "hasSuggest___2N9Xz",
@@ -952,7 +952,7 @@
       "left": "left___22Ub1",
       "right": "right___380hc",
       "contents": "contents___1p49a",
-      "_style": ".panel___YGdjx {\n  width: 50%;\n  position: relative;\n  height: 100%;\n}\n.overray___1Nb52 {\n  opacity: 0.75;\n}\n.left___22Ub1 .overray___1Nb52 {\n  background-color: #fffffc;\n}\n.right___380hc .overray___1Nb52 {\n  background-color: #222222;\n}\n.overray___1Nb52,\n.contents___1p49a {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.contents___1p49a {\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n  overflow: scroll;\n}\n"
+      "_style": ".panel___YGdjx {\n  width: 50%;\n  position: relative;\n  height: 100%;\n}\n.overray___1Nb52 {\n  opacity: 0.75;\n}\n.left___22Ub1 .overray___1Nb52 {\n  background-color: #fffffc;\n}\n.right___380hc .overray___1Nb52 {\n  background-color: #222222;\n}\n.overray___1Nb52,\n.contents___1p49a {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n.contents___1p49a {\n  display: flex;\n  align-items: center;\n  flex-direction: column;\n  overflow: scroll;\n}\n@media (max-width: 768px) {\n  .panel___YGdjx {\n    width: 100%;\n  }\n}\n"
     },
     "./src/css/scrooges.less": {
       "table": "table___1H8BA",

@@ -33,7 +33,8 @@ export default {
       url: `${base}/events/:id/scrooges`,
       method: 'DELETE',
       mode: 'cors',
-      credentials: 'include'
+      credentials: 'include',
+      useQuery: true,
     },
     remove: {
       url: `${base}/events/:id/scrooges/:scrooge`,

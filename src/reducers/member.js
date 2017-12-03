@@ -7,12 +7,7 @@ const CHANGE_INPUT_NAME = 'member/CHANGE_INPUT_NAME';
 
 const initialState = {
   suggests: [],
-  items: [
-    { id: 'sideroad', name: 'sideroad' },
-    { id: 'ninja-inc', name: 'ninja-inc' },
-    { id: 'nabnab', name: 'nabnab' },
-    { id: 'taka66', name: 'taka66' },
-  ],
+  items: [],
   loaded: false,
   loading: false
 };

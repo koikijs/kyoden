@@ -51,7 +51,7 @@ const AddPayment = (props) => {
           icon="fa-money"
           type="number"
           align="right"
-          value={props.scrooge.paidAmount || '0'}
+          value={props.scrooge.paidAmount}
           onChange={
             event => props.onInputPayment({
               paidAmount: event.target.value,

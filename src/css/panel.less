@@ -4,35 +4,25 @@
   width: 50%;
   position: relative;
   height: 100%;
-}
-.overray {
-  opacity: 0.75;
-}
-.left .overray{
-  background-color: @light;
-}
-.right .overray{
-  background-color: @dark;
-}
-
-.overray, .contents{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.contents {
   display: flex;
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
   overflow-x: hidden;
 }
+.left.panel{
+  background-color: @light-with-opacity;
+}
+.right.panel{
+  background-color: @dark-with-opacity;
+}
+
 
 @media (max-width: @screen-sp-min) {
   .panel {
     width: 100%;
+    height: inherit;
+    overflow-y: auto;
+    overflow-x: auto;
   }
 }

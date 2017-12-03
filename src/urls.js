@@ -24,19 +24,19 @@ export default {
       credentials: 'include'
     },
     update: {
-      url: `${base}/scrooges/:id`,
+      url: `${base}/events/:id/scrooges/:scrooge`,
       method: 'PATCH',
       mode: 'cors',
       credentials: 'include'
     },
     bulkRemove: {
-      url: `${base}/scrooges`,
+      url: `${base}/events/:id/scrooges`,
       method: 'DELETE',
       mode: 'cors',
       credentials: 'include'
     },
     remove: {
-      url: `${base}/scrooges/:id`,
+      url: `${base}/events/:id/scrooges/:scrooge`,
       method: 'DELETE',
       mode: 'cors',
       credentials: 'include'

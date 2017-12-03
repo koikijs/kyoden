@@ -5,25 +5,8 @@ const GET_FAIL = 'event/GET_FAIL';
 
 const initialState = {
   item: {
-    name: 'koicam',
-    aggPaidAmount: [
-      {
-        memberName: 'nabnab',
-        paidAmount: 200,
-      },
-      {
-        memberName: 'sideroad',
-        paidAmount: 5000,
-      },
-      {
-        memberName: 'taka66',
-        paidAmount: 14000,
-      },
-      {
-        memberName: 'ninja-inc',
-        paidAmount: 3000,
-      }
-    ],
+    name: '',
+    aggPaidAmount: [],
     scrooges: [],
     transferAmounts: [],
   },

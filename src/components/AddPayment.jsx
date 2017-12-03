@@ -27,8 +27,8 @@ const AddPayment = props =>
         selected={
           props.members.find(member => member.name === props.scrooge.memberName) ||
             {
-              text: props.members[0].name,
-              value: props.members[0].id,
+              text: props.members[0] ? props.members[0].name : '',
+              value: props.members[0] ? props.members[0].id : '',
             }
         }
         options={

@@ -9,6 +9,7 @@ const ui = {
   // eslint-disable-next-line global-require
   fa: require('../../node_modules/koiki-ui/less/fa/less/font-awesome.less'),
 };
+const logo = require('../images/logo.png');
 
 const Signature = props =>
   <form
@@ -19,7 +20,13 @@ const Signature = props =>
     <header
       className={styles.signature}
     >
-      <h1 className={styles.lead} >{props.lead}</h1>
+      <h1 className={styles.lead} >
+        <img
+          className={styles.logo}
+          src={logo}
+          alt={props.lead}
+        />
+      </h1>
       <h2 className={styles.sublead} >{props.sublead}</h2>
       <div className={styles.button}>
         <InputtableButton

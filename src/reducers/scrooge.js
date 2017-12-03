@@ -27,13 +27,19 @@ export default function reducer(state = initialState, action = {}) {
         loaded: true,
         items: action.body.items
       };
-    case EVENT_GET_SUCCESS:
+    case EVENT_GET_SUCCESS: {
+      const items = action.body.item.scrooges.filter(scrooge => scrooge.paidAmount);
       return {
         ...state,
         loading: false,
         loaded: true,
-        items: action.body.item.scrooges.filter(scrooge => scrooge.paidAmount),
+        items,
+        item: {
+          memberName: items[0].memberName,
+          ...state.item,
+        }
       };
+    }
     case GETS_FAIL:
       return {
         ...state,

@@ -6,7 +6,7 @@ import ws from '../helpers/ws';
 import config from '../config';
 import { get } from '../reducers/event';
 import { changeInputName } from '../reducers/member';
-import { input as inputScrooge, markAsRemoved as markAsRemovedScrooge } from '../reducers/scrooge';
+import { input as inputScrooge, markAsRemoved as markAsRemovedScrooge, reset as resetScrooge } from '../reducers/scrooge';
 import Panel from '../components/Panel';
 import Logo from '../components/Logo';
 import Title from '../components/Title';
@@ -57,10 +57,13 @@ class Event extends Component {
                 scrooge={this.props.scrooge}
                 members={this.props.members}
                 onInputPayment={this.props.inputScrooge}
-                onSubmitPayment={() => this.context.fetcher.scrooge.add({
-                  id: this.props.params.id,
-                  ...this.props.scrooge,
-                })}
+                onSubmitPayment={() => {
+                  this.context.fetcher.scrooge.add({
+                    id: this.props.params.id,
+                    ...this.props.scrooge,
+                  });
+                  this.props.resetScrooge();
+                }}
               />
             : null
           }
@@ -100,6 +103,7 @@ Event.propTypes = {
   scrooge: PropTypes.object.isRequired,
   scrooges: PropTypes.array.isRequired,
   markAsRemovedScrooge: PropTypes.func.isRequired,
+  resetScrooge: PropTypes.func.isRequired,
 };
 
 Event.contextTypes = {
@@ -123,6 +127,7 @@ const connected = connect(
     changeInputName,
     inputScrooge,
     markAsRemovedScrooge,
+    resetScrooge,
   }
 )(Event);
 

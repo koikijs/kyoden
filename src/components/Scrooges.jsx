@@ -11,7 +11,7 @@ const Scrooges = props =>
     <tbody>
       {
         props.scrooges.map(scrooge =>
-          <tr key={scrooge.id} >
+          <tr key={scrooge.id} className={scrooge.removed ? styles.removed : ''}>
             <td className={styles.name} >{scrooge.memberName}</td>
             <td className={styles.amount} >¥{scrooge.paidAmount.toLocaleString()}</td>
             <td className={styles.reason} >{scrooge.forWhat}</td>

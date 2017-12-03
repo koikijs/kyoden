@@ -6,7 +6,7 @@ import ws from '../helpers/ws';
 import config from '../config';
 import { get } from '../reducers/event';
 import { changeInputName } from '../reducers/member';
-import { input as inputScrooge } from '../reducers/scrooge';
+import { input as inputScrooge, markAsRemoved as markAsRemovedScrooge } from '../reducers/scrooge';
 import Panel from '../components/Panel';
 import Logo from '../components/Logo';
 import Title from '../components/Title';
@@ -62,10 +62,13 @@ class Event extends Component {
           />
           <Scrooges
             scrooges={this.props.scrooges}
-            onDeleteScrooge={scrooge => this.context.fetcher.scrooge.remove({
-              id: this.props.params.id,
-              scrooge: scrooge.id
-            })}
+            onDeleteScrooge={(scrooge) => {
+              this.props.markAsRemovedScrooge(scrooge);
+              this.context.fetcher.scrooge.remove({
+                id: this.props.params.id,
+                scrooge: scrooge.id
+              });
+            }}
           />
         </Panel>
         <Panel side="right">
@@ -92,6 +95,7 @@ Event.propTypes = {
   suggests: PropTypes.array.isRequired,
   scrooge: PropTypes.object.isRequired,
   scrooges: PropTypes.array.isRequired,
+  markAsRemovedScrooge: PropTypes.func.isRequired,
 };
 
 Event.contextTypes = {
@@ -114,6 +118,7 @@ const connected = connect(
     get,
     changeInputName,
     inputScrooge,
+    markAsRemovedScrooge,
   }
 )(Event);
 

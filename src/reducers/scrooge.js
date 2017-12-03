@@ -3,6 +3,7 @@ const GETS_START = 'scrooge/GETS_START';
 const GETS_SUCCESS = 'scrooge/GETS_SUCCESS';
 const GETS_FAIL = 'scrooge/GETS_FAIL';
 const INPUT = 'scrooge/INPUT';
+const MARK_AS_REMOVED = 'scrooge/MARK_AS_REMOVED';
 const EVENT_GET_SUCCESS = 'event/GET_SUCCESS';
 
 const initialState = {
@@ -47,6 +48,16 @@ export default function reducer(state = initialState, action = {}) {
           ...action.scrooge,
         }
       };
+    case MARK_AS_REMOVED:
+      return {
+        ...state,
+        items: state.items.map(scrooge =>
+          (action.scrooge.id === scrooge.id ? {
+            ...scrooge,
+            removed: true,
+          } : scrooge)
+        )
+      };
     default:
       return state;
   }
@@ -55,6 +66,13 @@ export default function reducer(state = initialState, action = {}) {
 export function input(scrooge) {
   return {
     type: INPUT,
+    scrooge,
+  };
+}
+
+export function markAsRemoved(scrooge) {
+  return {
+    type: MARK_AS_REMOVED,
     scrooge,
   };
 }

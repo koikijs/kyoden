@@ -46,7 +46,7 @@ class Event extends Component {
             })}
             onDeleteMember={member => this.context.fetcher.scrooge.bulkRemove({
               id: this.props.params.id,
-              memberName: member.name,
+              memberNames: member.name,
             })}
           />
           <AddPayment

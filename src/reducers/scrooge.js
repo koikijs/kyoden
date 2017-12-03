@@ -58,7 +58,9 @@ export default function reducer(state = initialState, action = {}) {
     case RESET:
       return {
         ...state,
-        item: {}
+        item: {
+          memberName: state.items[0] ? state.items[0].memberName : ''
+        }
       };
     case MARK_AS_REMOVED:
       return {

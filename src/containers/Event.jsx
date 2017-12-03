@@ -8,6 +8,7 @@ import { get } from '../reducers/event';
 import { changeInputName } from '../reducers/member';
 import { input as inputScrooge } from '../reducers/scrooge';
 import Panel from '../components/Panel';
+import Logo from '../components/Logo';
 import Title from '../components/Title';
 import Members from '../components/Members';
 import Scrooges from '../components/Scrooges';
@@ -30,6 +31,7 @@ class Event extends Component {
     return (
       <div className={styles.panels} >
         <Panel side="left">
+          <Logo />
           <Title
             title={this.props.eventName}
             theme="black"

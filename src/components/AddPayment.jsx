@@ -12,62 +12,70 @@ const ui = {
   selectbox: require('../css/koiki-ui/light-selectbox.less'),
 };
 
-const AddPayment = props =>
-  <div
-    className={styles.addPayment}
-  >
-    <div className={styles.column} >
-      <Selectbox
-        styles={ui}
-        onSelect={
-          option => props.onInputPayment({
-            memberName: option.value
-          })
-        }
-        selected={
-          props.members.find(member => member.name === props.scrooge.memberName) ||
-            {
-              text: props.members[0] ? props.members[0].name : '',
-              value: props.members[0] ? props.members[0].id : '',
-            }
-        }
-        options={
-          props.members.map(member => ({
-            text: member.name,
-            value: member.id,
-          }))
-        }
-      />
+const AddPayment = (props) => {
+  const selected = (
+    props.members.find(member => member.name === props.scrooge.memberName) ||
+    props.members[0] ||
+      {
+        id: '',
+        name: '',
+      }
+  );
+  return (
+    <div
+      className={styles.addPayment}
+    >
+      <div className={styles.column} >
+        <Selectbox
+          styles={ui}
+          onSelect={
+            option => props.onInputPayment({
+              memberName: option.value
+            })
+          }
+          selected={{
+            text: selected.name,
+            value: selected.id,
+          }}
+          options={
+            props.members.map(member => ({
+              text: member.name,
+              value: member.id,
+            }))
+          }
+        />
+      </div>
+      <div className={styles.column} >
+        <Input
+          styles={ui}
+          icon="fa-money"
+          type="number"
+          align="right"
+          value={props.scrooge.paidAmount || '0'}
+          onChange={
+            event => props.onInputPayment({
+              paidAmount: event.target.value,
+            })
+          }
+          onSubmit={props.onSubmitPayment}
+        />
+      </div>
+      <div className={styles.column} >
+        <Input
+          styles={ui}
+          icon="fa-commenting-o"
+          value={props.scrooge.forWhat}
+          onChange={
+            event => props.onInputPayment({
+              forWhat: event.target.value,
+            })
+          }
+          onSubmit={props.onSubmitPayment}
+        />
+      </div>
     </div>
-    <div className={styles.column} >
-      <Input
-        styles={ui}
-        icon="fa-money"
-        type="number"
-        align="right"
-        value={props.scrooge.paidAmount || '0'}
-        onChange={
-          event => props.onInputPayment({
-            paidAmount: event.target.value,
-          })
-        }
-        onSubmit={props.onSubmitPayment}
-      />
-    </div>
-    <div className={styles.column} >
-      <Input
-        styles={ui}
-        icon="fa-commenting-o"
-        value={props.scrooge.forWhat}
-        onChange={
-          event => props.onInputPayment({
-            forWhat: event.target.value,
-          })
-        }
-        onSubmit={props.onSubmitPayment}
-      />
-    </div>
-  </div>;
+  );
+};
 
 AddPayment.propTypes = {
   scrooge: PropTypes.object.isRequired,

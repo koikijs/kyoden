@@ -51,15 +51,19 @@ class Event extends Component {
               memberNames: member.name,
             })}
           />
-          <AddPayment
-            scrooge={this.props.scrooge}
-            members={this.props.members}
-            onInputPayment={this.props.inputScrooge}
-            onSubmitPayment={() => this.context.fetcher.scrooge.add({
-              id: this.props.params.id,
-              ...this.props.scrooge,
-            })}
-          />
+          {
+            this.props.members.length ?
+              <AddPayment
+                scrooge={this.props.scrooge}
+                members={this.props.members}
+                onInputPayment={this.props.inputScrooge}
+                onSubmitPayment={() => this.context.fetcher.scrooge.add({
+                  id: this.props.params.id,
+                  ...this.props.scrooge,
+                })}
+              />
+            : null
+          }
           <Scrooges
             scrooges={this.props.scrooges}
             onDeleteScrooge={(scrooge) => {

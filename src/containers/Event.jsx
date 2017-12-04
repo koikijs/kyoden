@@ -61,6 +61,7 @@ class Event extends Component {
                   this.context.fetcher.scrooge.add({
                     id: this.props.params.id,
                     ...this.props.scrooge,
+                    memberName: this.props.scrooge.memberName || this.props.members[0].id,
                   });
                   this.props.resetScrooge();
                 }}

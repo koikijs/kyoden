@@ -46,8 +46,8 @@ server({
   },
   colors: {
     background: '#222222',
-    primary: '#fffffc',
-    secondary: '#BF783A'
+    primary: '#e6e38e',
+    secondary: '#4c4900'
   }
 });
 

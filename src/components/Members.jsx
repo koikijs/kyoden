@@ -19,6 +19,7 @@ const Members = props =>
     className={styles.members}
   >
     <Chips
+      focused
       icon="fa-user"
       styles={ui}
       placeholder="Add member"

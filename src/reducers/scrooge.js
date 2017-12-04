@@ -28,14 +28,13 @@ export default function reducer(state = initialState, action = {}) {
         items: action.body.items
       };
     case EVENT_GET_SUCCESS: {
-      const items = action.body.item.scrooges.filter(scrooge => scrooge.paidAmount);
       return {
         ...state,
         loading: false,
         loaded: true,
-        items,
+        items: action.body.item.scrooges.filter(scrooge => scrooge.paidAmount),
         item: {
-          memberName: items[0].memberName,
+          memberName: action.body.item.scrooges[0] ? action.body.item.scrooges[0].memberName : '',
           ...state.item,
         }
       };
@@ -59,8 +58,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         item: {
-          memberName: state.items[0] ? state.items[0].memberName : ''
-        }
+          memberName: state.item.memberName,
+        },
       };
     case MARK_AS_REMOVED:
       return {

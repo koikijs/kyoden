@@ -45,9 +45,9 @@ server({
     description: config.app.description,
   },
   colors: {
-    background: '#595455',
-    primary: '#FFFFFC',
-    secondary: '#8DB530'
+    background: '#222222',
+    primary: '#fffffc',
+    secondary: '#BF783A'
   }
 });
 

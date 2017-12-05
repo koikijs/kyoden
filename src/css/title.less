@@ -4,6 +4,8 @@
   font-size: 3em;
   margin: 1em 0;
   position: absolute;
+  animation-delay: 0.5s;
+  animation-duration: 0.5s;
 }
 
 .white {
@@ -17,11 +19,30 @@
 .left {
   transform: translateX(50%);
   right: 0;
+  animation-name: fromRight;
 }
 
 .right {
   transform: translateX(-50%);
   left: 0;
+  animation-name: fromLeft;
+}
+
+@keyframes fromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+@keyframes fromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: @screen-sp-min) {

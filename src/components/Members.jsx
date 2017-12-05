@@ -22,7 +22,7 @@ const Members = props =>
       focused
       icon="fa-user"
       styles={ui}
-      placeholder="Add member"
+      placeholder="Tell me attendee name"
       onChange={event => props.onChangeInputName(event.target.value)}
       onSelect={props.onSelectMember}
       onDelete={props.onDeleteMember}

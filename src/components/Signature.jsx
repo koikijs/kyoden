@@ -33,6 +33,7 @@ const Signature = props =>
           styles={ui}
           text="Create Event"
           icon="fa-pencil"
+          placeholder="Tell me event name"
           onSubmit={(evt) => {
             props.onEventSubmit({
               name: evt.target.value,

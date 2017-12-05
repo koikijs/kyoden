@@ -51,6 +51,7 @@ const AddPayment = (props) => {
           icon="fa-money"
           type="number"
           align="right"
+          placeholder="Amount"
           value={props.scrooge.paidAmount}
           onChange={
             event => props.onInputPayment({
@@ -64,6 +65,7 @@ const AddPayment = (props) => {
         <Input
           styles={ui}
           icon="fa-commenting-o"
+          placeholder="Reason"
           value={props.scrooge.forWhat}
           onChange={
             event => props.onInputPayment({

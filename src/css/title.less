@@ -45,6 +45,15 @@
   }
 }
 
+@keyframes fromRightToEdge {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
 @media (max-width: @screen-sp-min) {
   .title {
     font-size: 2em;
@@ -53,10 +62,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .left {
-    transform: translateX(-50%);
-    left: 50%;
-    right: inherit;
+  .animate.left {
+    transform: translateX(100%);
+    animation-name: fromRightToEdge;
+    margin-right: 5%;
   }
   .right {
     display: none;

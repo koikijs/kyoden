@@ -5,7 +5,7 @@ const styles = require('../css/title.less');
 
 const Title = props =>
   <div
-    className={`${styles.title} ${styles[props.theme]} ${styles[props.align]}`}
+    className={`${styles.title} ${styles[props.theme]} ${styles[props.align]} ${props.title ? styles.animate : ''}`}
   >
     {props.title}
   </div>;

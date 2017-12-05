@@ -4,8 +4,8 @@
   font-size: 3em;
   margin: 1em 0;
   position: absolute;
-  animation-delay: 0.5s;
   animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 .white {
@@ -17,13 +17,13 @@
 }
 
 .animate.left {
-  transform: translateX(50%);
+  transform: translateX(100%);
   right: 0;
   animation-name: fromRight;
 }
 
 .animate.right {
-  transform: translateX(-50%);
+  transform: translateX(-100%);
   left: 0;
   animation-name: fromLeft;
 }

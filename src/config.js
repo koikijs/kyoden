@@ -51,11 +51,15 @@ module.exports = Object.assign({
       ]
     },
     statics: {
+      script: [
+        { src: 'https://code.createjs.com/createjs-2015.11.26.min.js' },
+        { src: 'https://cdn.rawgit.com/ics-creative/ParticleJS/release/0.1.31/libs/particlejs.min.js' },
+      ],
       link: [
         { rel: 'shortcut icon', href: '/images/favicon.png' },
         { rel: 'stylesheet', type: 'text/css', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400', },
         { rel: 'stylesheet', type: 'text/css', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' },
-        { rel: 'stylesheet', type: 'text/css', href: '/css/normalize.css' }
+        { rel: 'stylesheet', type: 'text/css', href: '/css/normalize.css' },
       ]
     }
   }

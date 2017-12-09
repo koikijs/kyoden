@@ -2,8 +2,10 @@
 const GET_START = 'event/GET_START';
 const GET_SUCCESS = 'event/GET_SUCCESS';
 const GET_FAIL = 'event/GET_FAIL';
+const CHANGE = 'event/CHANGE';
 
 const initialState = {
+  name: '',
   item: {
     name: '',
     aggPaidAmount: [],
@@ -34,6 +36,11 @@ export default function reducer(state = initialState, action = {}) {
         loaded: false,
         error: action.err
       };
+    case CHANGE:
+      return {
+        ...state,
+        ...action.values
+      };
     default:
       return state;
   }
@@ -45,5 +52,12 @@ export function get(item) {
     body: {
       item
     }
+  };
+}
+
+export function change(values) {
+  return {
+    type: CHANGE,
+    values,
   };
 }

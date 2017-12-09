@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputtableButton } from 'koiki-ui';
+import Particle from '../components/Particle';
 
 const styles = require('../css/signature.less');
 const ui = {
@@ -34,13 +35,21 @@ const Signature = props =>
             name: evt.target.value,
           });
         }}
+        onChange={(evt) => {
+          props.onEventChange({
+            name: evt.target.value,
+          });
+        }}
       />
     </div>
+    <Particle value={props.eventName} />
   </header>;
 
 Signature.propTypes = {
   lead: PropTypes.string.isRequired,
   sublead: PropTypes.string.isRequired,
+  eventName: PropTypes.string.isRequired,
+  onEventChange: PropTypes.func.isRequired,
   onEventSubmit: PropTypes.func.isRequired,
 };
 

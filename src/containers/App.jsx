@@ -8,7 +8,7 @@ import styles from '../css/app.less';
 const App = props =>
   <div className={styles.app}>
     {props.children}
-    <Helmet {...config.app.head} title="kyoden" />
+    <Helmet {...config.app.head} title="Fair payments across members" />
   </div>;
 
 App.propTypes = {

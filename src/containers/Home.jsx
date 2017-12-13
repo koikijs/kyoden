@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { stringify } from 'koiki';
+import { change as changeEvent } from '../reducers/event';
 import Signature from '../components/Signature';
 import uris from '../uris';
 
@@ -11,6 +12,10 @@ const Home = (props, context) =>
     <Signature
       lead={context.i18n.lead}
       sublead={context.i18n.sublead}
+      eventName={props.eventName}
+      onEventChange={(values) => {
+        props.changeEvent(values);
+      }}
       onEventSubmit={(values) => {
         context.fetcher.event.save(values)
           .then(({ res }) => {
@@ -32,12 +37,16 @@ Home.contextTypes = {
 };
 
 Home.propTypes = {
+  eventName: PropTypes.string.isRequired,
+  changeEvent: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
 };
 
 const connected = connect(
-  state => state,
-  { push }
+  state => ({
+    eventName: state.event.name,
+  }),
+  { push, changeEvent }
 )(Home);
 
 export default connected;

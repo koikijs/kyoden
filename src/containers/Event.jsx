@@ -6,8 +6,9 @@ import ws from '../helpers/ws';
 import config from '../config';
 import { get } from '../reducers/event';
 import { changeInputName } from '../reducers/member';
-import { input as inputScrooge } from '../reducers/scrooge';
+import { input as inputScrooge, markAsRemoved as markAsRemovedScrooge, reset as resetScrooge } from '../reducers/scrooge';
 import Panel from '../components/Panel';
+import Logo from '../components/Logo';
 import Title from '../components/Title';
 import Members from '../components/Members';
 import Scrooges from '../components/Scrooges';
@@ -30,6 +31,7 @@ class Event extends Component {
     return (
       <div className={styles.panels} >
         <Panel side="left">
+          <Logo />
           <Title
             title={this.props.eventName}
             theme="black"
@@ -46,24 +48,35 @@ class Event extends Component {
             })}
             onDeleteMember={member => this.context.fetcher.scrooge.bulkRemove({
               id: this.props.params.id,
-              memberName: member.name,
+              memberNames: member.name,
             })}
           />
-          <AddPayment
-            scrooge={this.props.scrooge}
-            members={this.props.members}
-            onInputPayment={this.props.inputScrooge}
-            onSubmitPayment={() => this.context.fetcher.scrooge.add({
-              id: this.props.params.id,
-              ...this.props.scrooge,
-            })}
-          />
+          {
+            this.props.members.length ?
+              <AddPayment
+                scrooge={this.props.scrooge}
+                members={this.props.members}
+                onInputPayment={this.props.inputScrooge}
+                onSubmitPayment={() => {
+                  this.context.fetcher.scrooge.add({
+                    id: this.props.params.id,
+                    ...this.props.scrooge,
+                    memberName: this.props.scrooge.memberName || this.props.members[0].id,
+                  });
+                  this.props.resetScrooge();
+                }}
+              />
+            : null
+          }
           <Scrooges
             scrooges={this.props.scrooges}
-            onDeleteScrooge={scrooge => this.context.fetcher.scrooge.remove({
-              id: this.props.params.id,
-              scrooge: scrooge.id
-            })}
+            onDeleteScrooge={(scrooge) => {
+              this.props.markAsRemovedScrooge(scrooge);
+              this.context.fetcher.scrooge.remove({
+                id: this.props.params.id,
+                scrooge: scrooge.id
+              });
+            }}
           />
         </Panel>
         <Panel side="right">
@@ -90,6 +103,8 @@ Event.propTypes = {
   suggests: PropTypes.array.isRequired,
   scrooge: PropTypes.object.isRequired,
   scrooges: PropTypes.array.isRequired,
+  markAsRemovedScrooge: PropTypes.func.isRequired,
+  resetScrooge: PropTypes.func.isRequired,
 };
 
 Event.contextTypes = {
@@ -112,6 +127,8 @@ const connected = connect(
     get,
     changeInputName,
     inputScrooge,
+    markAsRemovedScrooge,
+    resetScrooge,
   }
 )(Event);
 

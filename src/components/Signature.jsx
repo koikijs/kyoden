@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputtableButton } from 'koiki-ui';
+import Particle from '../components/Particle';
 
 const styles = require('../css/signature.less');
 const ui = {
@@ -12,40 +13,43 @@ const ui = {
 const logo = require('../images/logo.png');
 
 const Signature = props =>
-  <form
-    onSubmit={(event) => {
-      event.preventDefault();
-    }}
+  <header
+    className={styles.signature}
   >
-    <header
-      className={styles.signature}
-    >
-      <h1 className={styles.lead} >
-        <img
-          className={styles.logo}
-          src={logo}
-          alt={props.lead}
-        />
-      </h1>
-      <h2 className={styles.sublead} >{props.sublead}</h2>
-      <div className={styles.button}>
-        <InputtableButton
-          styles={ui}
-          text="Create Event"
-          icon="fa-pencil"
-          onSubmit={(evt) => {
-            props.onEventSubmit({
-              name: evt.target.value,
-            });
-          }}
-        />
-      </div>
-    </header>
-  </form>;
+    <h1 className={styles.lead} >
+      <img
+        className={styles.logo}
+        src={logo}
+        alt={props.lead}
+      />
+    </h1>
+    <h2 className={styles.sublead} >{props.sublead}</h2>
+    <div className={styles.button}>
+      <InputtableButton
+        styles={ui}
+        text="Create Event"
+        icon="fa-pencil"
+        placeholder="Tell me event name"
+        onSubmit={(evt) => {
+          props.onEventSubmit({
+            name: evt.target.value,
+          });
+        }}
+        onChange={(evt) => {
+          props.onEventChange({
+            name: evt.target.value,
+          });
+        }}
+      />
+    </div>
+    <Particle value={props.eventName} />
+  </header>;
 
 Signature.propTypes = {
   lead: PropTypes.string.isRequired,
   sublead: PropTypes.string.isRequired,
+  eventName: PropTypes.string.isRequired,
+  onEventChange: PropTypes.func.isRequired,
   onEventSubmit: PropTypes.func.isRequired,
 };
 

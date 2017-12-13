@@ -7,10 +7,7 @@ const Panel = props =>
   <div
     className={`${styles.panel} ${styles[props.side]}`}
   >
-    <div className={styles.overray} />
-    <div className={styles.contents}>
-      {props.children}
-    </div>
+    {props.children}
   </div>;
 
 Panel.propTypes = {

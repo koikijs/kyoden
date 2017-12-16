@@ -1,11 +1,22 @@
 @import "variables.less";
 
 .loading {
-  width: 50px;
-  height: 50px;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity : 1;
+  margin: auto;
   transform: rotate(15deg);
-  position: relative;
   animation: rotation 2.4s linear infinite;
+}
+
+.done {
+  animation: fadeout 2s;
+  animation-fill-mode: forwards;
 }
 
 .loading svg {
@@ -13,6 +24,10 @@
   top: 0;
   left: 0;
   fill: #b5ae2e;
+}
+
+.loading circle {
+  fill: @light-secondary;
 }
 
 .a0 {
@@ -39,10 +54,20 @@
 
 .cls {
   fill: none;
-  stroke: #000;
+  stroke: @light-secondary;
   stroke-miterlimit: 10;
   stroke-width: 3px;
 }
+
+@keyframes fadeout {
+	0%{
+		opacity:1;
+	}
+	100% {
+		opacity:0;
+	}
+}
+
 @keyframes spin {
   0% {}
 

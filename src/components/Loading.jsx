@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 
 const styles = require('../css/loading.less');
 
+const points = '150.41 236.29 236.29 150.41 204.86 33.11 87.55 1.67 1.67 87.55 33.11 204.86 150.41 236.29';
+
 class Loading extends Component {
   render() {
     if (this.props.isActive) {
       return (
         <div className={styles.loading}>
-          <svg className={styles.a0} id="layer_0" data-name="layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
+          <svg className={styles.a0} id="layer_0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
             <title>rotate0</title>
             <polygon
               className={styles.cls}
-              points="150.41 236.29 236.29 150.41 204.86 33.11 87.55
-                      1.67 1.67 87.55 33.11 204.86 150.41 236.29"
+              points={points}
             />
             <line className={styles.cls} x1="1.6" y1="87.16" x2="234.95" y2="149.39" />
             <line className={styles.cls} x1="87.67" y1="0.95" x2="151" y2="236.31" />
@@ -39,12 +40,11 @@ class Loading extends Component {
             <circle cx="119.69" cy="118.27" r="17" />
             <line x1="204.96" y1="33.97" x2="186.16" y2="101.3" />
           </svg>
-          <svg className={styles.a1} id="layer_1" data-name="layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
+          <svg className={styles.a1} id="layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
             <title>rotate1</title>
             <polygon
               className={styles.cls}
-              points="150.41 236.29 236.29 150.41 204.86 33.11 87.55
-                      1.67 1.67 87.55 33.11 204.86 150.41 236.29"
+              points={points}
             />
             <line className={styles.cls} x1="1.6" y1="87.16" x2="234.95" y2="149.39" />
             <line className={styles.cls} x1="87.67" y1="0.95" x2="151" y2="236.31" />
@@ -70,12 +70,11 @@ class Loading extends Component {
             <circle cx="119.69" cy="118.27" r="17" />
             <polygon points="120.39 118.98 235.65 149.39 186.16 101.3 120.39 118.98" />
           </svg>
-          <svg className={styles.a2} id="layer_2" data-name="layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
+          <svg className={styles.a2} id="layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
             <title>rotate2</title>
             <polygon
               className={styles.cls}
-              points="150.41 236.29 236.29 150.41 204.86 33.11 87.55
-                      1.67 1.67 87.55 33.11 204.86 150.41 236.29"
+              points={points}
             />
             <line className={styles.cls} x1="1.6" y1="87.16" x2="234.95" y2="149.39" />
             <line className={styles.cls} x1="87.67" y1="0.95" x2="151" y2="236.31" />
@@ -101,12 +100,11 @@ class Loading extends Component {
             <circle cx="119.69" cy="118.27" r="17" />
             <polygon points="120.39 118.98 204.96 33.97 186.16 101.3 120.39 118.98" />
           </svg>
-          <svg className={styles.a3} id="layer_3" data-name="layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
+          <svg className={styles.a3} id="layer_3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237.96 237.96">
             <title>rotate3</title>
             <polygon
               className={styles.cls}
-              points="150.41 236.29 236.29 150.41 204.86 33.11 87.55
-                      1.67 1.67 87.55 33.11 204.86 150.41 236.29"
+              points={points}
             />
             <line className={styles.cls} x1="1.6" y1="87.16" x2="234.95" y2="149.39" />
             <line className={styles.cls} x1="87.67" y1="0.95" x2="151" y2="236.31" />

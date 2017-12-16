@@ -5,10 +5,14 @@ import { push } from 'react-router-redux';
 import { stringify } from 'koiki';
 import { change as changeEvent } from '../reducers/event';
 import Signature from '../components/Signature';
+import Loading from '../components/Loading';
 import uris from '../uris';
 
 const Home = (props, context) =>
   <div>
+    <Loading
+      isActive
+    />
     <Signature
       lead={context.i18n.lead}
       sublead={context.i18n.sublead}

@@ -2,6 +2,9 @@
 const GET_START = 'event/GET_START';
 const GET_SUCCESS = 'event/GET_SUCCESS';
 const GET_FAIL = 'event/GET_FAIL';
+const SAVE_START = 'event/SAVE_START';
+const SAVE_SUCCESS = 'event/SAVE_SUCCESS';
+const SAVE_FAIL = 'event/SAVE_FAIL';
 const CHANGE = 'event/CHANGE';
 
 const initialState = {
@@ -13,7 +16,6 @@ const initialState = {
     transferAmounts: [],
   },
   loaded: false,
-  loading: false
 };
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -35,6 +37,21 @@ export default function reducer(state = initialState, action = {}) {
         loading: false,
         loaded: false,
         error: action.err
+      };
+    case SAVE_START:
+      return {
+        ...state,
+        loading: true
+      };
+    case SAVE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+      };
+    case SAVE_FAIL:
+      return {
+        ...state,
+        loading: false,
       };
     case CHANGE:
       return {

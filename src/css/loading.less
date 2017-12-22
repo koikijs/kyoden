@@ -18,7 +18,7 @@
   opacity : 1;
   margin: auto;
   transform: rotate(15deg);
-  animation: rotation 2.4s linear infinite;
+  animation: rotation 2.4s linear infinite, fadein 1s;
   z-index: 9999;
 }
 
@@ -77,6 +77,15 @@
 	}
 	100% {
 		opacity:0;
+	}
+}
+
+@keyframes fadein {
+	0%{
+		opacity:0;
+	}
+	100% {
+		opacity:1;
 	}
 }
 

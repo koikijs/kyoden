@@ -16,7 +16,6 @@ const initialState = {
     transferAmounts: [],
   },
   loaded: false,
-  loading: false
 };
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {

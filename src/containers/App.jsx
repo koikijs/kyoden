@@ -14,8 +14,11 @@ const App = props =>
     <Helmet {...config.app.head} title="Fair payments across members" />
   </div>;
 
+App.defaultProps = {
+};
+
 App.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   children: PropTypes.element,
 };
 
@@ -29,9 +32,7 @@ const connected = connect(
   state => ({
     // Put all loading condition below with || expression
     loading:
-      state.event.loading ||
-      state.scrooge.loading ||
-      state.member.loading,
+      state.event.loading,
   }),
   {}
 )(App);

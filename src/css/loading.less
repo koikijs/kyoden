@@ -1,5 +1,12 @@
 @import "variables.less";
 
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background: @dark-with-opacity;
+  z-index: 9998;
+}
+
 .loading {
   width: 200px;
   height: 200px;
@@ -12,6 +19,11 @@
   margin: auto;
   transform: rotate(15deg);
   animation: rotation 2.4s linear infinite;
+  z-index: 9999;
+}
+
+.undifined {
+  display: none;
 }
 
 .done {

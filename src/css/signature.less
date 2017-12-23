@@ -43,18 +43,23 @@
 
 @keyframes blured {
   0% {
+		filter: hue-rotate(0deg);
 		box-shadow: 1px 1px 5px 0px @dark-primary;
   }
   25% {
+		filter: hue-rotate(-10deg);
 		box-shadow: -1px 1px 10px 0px @dark-primary;
   }
   50% {
+		filter: hue-rotate(-20deg);
 		box-shadow: -1px -1px 15px 0px @dark-primary;
   }
   75% {
+		filter: hue-rotate(-10deg);
 		box-shadow: 1px -1px 10px 0px @dark-primary;
   }
   100% {
+		filter: hue-rotate(0deg);
 		box-shadow: 1px 1px 5px 0px @dark-primary;
   }
 }

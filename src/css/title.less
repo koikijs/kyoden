@@ -6,6 +6,8 @@
   position: absolute;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
+  width: 150%;
+  text-align: center;
 }
 
 .white {
@@ -57,10 +59,11 @@
 @media (max-width: @screen-sp-min) {
   .title {
     font-size: 2em;
-    max-width: 60%;
+    max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: right;
   }
   .animate.left {
     transform: translateX(100%);

@@ -1,8 +1,11 @@
 @import "variables.less";
 
 .modal {
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: @dark-with-opacity;
   z-index: 9998;
 }
@@ -11,14 +14,11 @@
   width: 200px;
   height: 200px;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  top: 50%;
+  left: 50%;
   opacity : 1;
-  margin: auto;
-  transform: rotate(15deg);
-  animation: rotation 2.4s linear infinite, fadein 1s;
+  transform: translate(-50%, -50%) rotate(15deg);
+  animation: rotation 0.5s linear infinite, fadein 1s;
   z-index: 9999;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .done {
-  animation: fadeout 2s;
+  animation: fadeout 0.5s;
   animation-fill-mode: forwards;
 }
 

@@ -7,19 +7,19 @@ import Loading from '../components/Loading';
 import config from '../config';
 import styles from '../css/app.less';
 
-const App = props =>
+const App = props => (
   <div className={styles.app}>
     <Loading isActive={props.loading} />
     {props.children}
     <Helmet {...config.app.head} title="Fair payments across members" />
-  </div>;
+  </div>
+);
 
-App.defaultProps = {
-};
+App.defaultProps = {};
 
 App.propTypes = {
   loading: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.element
 };
 
 App.contextTypes = {
@@ -31,16 +31,16 @@ App.contextTypes = {
 const connected = connect(
   state => ({
     // Put all loading condition below with || expression
-    loading:
-      state.event.loading,
+    loading: state.event.loading
   }),
   {}
 )(App);
 
-export default asyncConnect([{
-  promise: ({ store: { dispatch } }) => {
-    const promises = [];
-    console.log(true || dispatch);
-    return Promise.all(promises);
+export default asyncConnect([
+  {
+    promise: () => {
+      const promises = [];
+      return Promise.all(promises);
+    }
   }
-}])(connected);
+])(connected);

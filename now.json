@@ -1,4 +1,11 @@
 {
   "name": "kyoden",
-  "version": 2
+  "version": 2,
+  "routes": [
+    {
+      "src": "/(ja|en)/events/(.+)",
+      "status": 301,
+      "headers": { "Location": "https://kyoden.now.sh/events/$2" }
+    }
+  ]
 }

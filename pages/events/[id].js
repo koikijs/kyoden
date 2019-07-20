@@ -36,7 +36,7 @@ class Event extends Component {
     return (
       <>
         <Head>
-          <title>{this.props.eventName} - kyoden</title>
+          <title>{this.props.eventName ? `${this.props.eventName} - kyoden` : 'kyoden'}</title>
           <meta name="description" content="kyoden" />
           <meta charSet="utf-8" />
           <meta property="og:site_name" content="kyoden" />

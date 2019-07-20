@@ -1,8 +1,4 @@
 {
-  "version": 1,
-  "type": "docker",
-  "regions": ["sfo1"],
-  "features": {
-    "cloud": "v1"
-  }
+  "name": "kyoden",
+  "version": 2
 }

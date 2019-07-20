@@ -440,7 +440,7 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-overflow-scrolling: touch;
 }
 
-html,body, div#content, div#content > div{
+html,body, div#__next, div#__next > div{
   height: 100%;
   width: 100%;
 }

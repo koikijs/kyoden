@@ -4,59 +4,47 @@
   "description": "kyoden",
   "author": "koiki",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "repository": {},
   "keywords": [
     "kyoden"
   ],
   "main": "bin/server.js",
   "scripts": {
-    "start": "koiki-start",
-    "build": "koiki-build",
+    "start": "next start",
+    "build": "next build",
     "postinstall": "npm run build",
     "lint": "eslint -c .eslintrc src",
-    "dev": "koiki-dev"
+    "dev": "next"
   },
   "dependencies": {
-    "async": "^2.0.1",
-    "babel-polyfill": "^6.3.14",
+    "@zeit/next-less": "^1.0.1",
     "body-parser": "^1.14.2",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
-    "history": "1.13.1",
-    "isomorphic-fetch": "^2.2.0",
-    "jsx-loader": "^0.13.2",
-    "koiki": "^6.3.0",
-    "koiki-ui": "0.0.77",
-    "lodash": "^4.17.2",
+    "lodash": "^4.17.14",
     "moment": "^2.10.6",
-    "pretty-error": "^1.2.0",
-    "prop-types": "^15.6.0",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
+    "next": "^9.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-fastclick": "^2.1.0",
-    "react-helmet": "^2.3.1",
-    "react-redux": "^4.0.0",
-    "react-router": "^2.8.1",
-    "react-router-redux": "^4.0.4",
+    "react-redux": "^5.0.1",
     "react-swipeable": "^3.6.0",
-    "redux": "^3.0.4",
-    "redux-connect": "^3.0.0",
-    "redux-router": "1.0.0-beta5",
-    "serve-favicon": "^2.3.0"
+    "redux": "^3.6.0",
+    "redux-devtools-extension": "^2.13.2"
   },
   "devDependencies": {
-    "chai": "^3.3.0",
-    "eslint": "^3.6.0",
-    "eslint-config-airbnb": "^12.0.0",
-    "eslint-plugin-import": "^1.16.0",
-    "eslint-plugin-jsx-a11y": "^2.2.2",
-    "eslint-plugin-react": "^6.4.1",
-    "react-addons-test-utils": "^15.3.2"
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.2",
+    "less": "^2.7.3",
+    "styled-jsx-plugin-less": "0.0.1-alpha.1"
   },
   "engines": {
-    "node": "7.4.0"
+    "node": "10.16.0"
   }
 }

@@ -23,15 +23,18 @@ class Event extends Component {
   static async getInitialProps({ query }) {
     return { params: query };
   }
+
   componentDidMount() {
     this.ws = ws({
       url: `wss://${config.ws.origin}/?${this.props.params.id}`,
       onmessage: json => this.props.get(json),
     });
   }
+
   componentWillUnmount() {
     this.ws.close();
   }
+
   render() {
     return (
       <>
@@ -49,22 +52,24 @@ class Event extends Component {
           <meta property="og:image:width" content="300" />
           <meta property="og:image:height" content="300" />
         </Head>
-        <style jsx>{`
-          .panels {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-            height: 100%;
-          }
-
-          @media (max-width: 768px) {
+        <style jsx>
+          {`
             .panels {
-              display: block;
-              height: auto;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              align-items: stretch;
+              height: 100%;
             }
-          }
-        `}</style>
+
+            @media (max-width: 768px) {
+              .panels {
+                display: block;
+                height: auto;
+              }
+            }
+          `}
+        </style>
         <div className="panels">
           <Panel side="left">
             <Logo />
@@ -73,34 +78,32 @@ class Event extends Component {
               suggests={this.props.suggests}
               members={this.props.members}
               onChangeInputName={this.props.changeInputName}
-              onSelectMember={member =>
-                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
+              onSelectMember={member => fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                body: JSON.stringify({
+                  memberName: member.name,
+                  paidAmount: 0,
+                }),
+              })
+              }
+              onDeleteMember={member => fetch(
+                `${config.api.base}/events/${
+                  this.props.params.id
+                }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
+                {
                   headers: {
                     'Content-Type': 'application/json',
                   },
-                  method: 'POST',
+                  method: 'DELETE',
                   mode: 'cors',
                   credentials: 'include',
-                  body: JSON.stringify({
-                    memberName: member.name,
-                    paidAmount: 0,
-                  }),
-                })
-              }
-              onDeleteMember={member =>
-                fetch(
-                  `${config.api.base}/events/${
-                    this.props.params.id
-                  }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
-                  {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    method: 'DELETE',
-                    mode: 'cors',
-                    credentials: 'include',
-                  }
-                )
+                },
+              )
               }
             />
             {this.props.members.length ? (
@@ -127,7 +130,7 @@ class Event extends Component {
             ) : null}
             <Scrooges
               scrooges={this.props.scrooges}
-              onDeleteScrooge={scrooge => {
+              onDeleteScrooge={(scrooge) => {
                 this.props.markAsRemovedScrooge(scrooge);
                 fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
                   headers: {
@@ -142,7 +145,9 @@ class Event extends Component {
           </Panel>
           <Panel side="right">
             <Title title={this.props.eventName} theme="white" align="right" />
-            <TransferPayments transferAmounts={this.props.transferAmounts} />
+            {this.props.transferAmounts.length ? (
+              <TransferPayments transferAmounts={this.props.transferAmounts} />
+            ) : null}
           </Panel>
         </div>
       </>
@@ -166,7 +171,7 @@ const connected = connect(
     inputScrooge,
     markAsRemovedScrooge,
     resetScrooge,
-  }
+  },
 )(Event);
 
 export default connected;

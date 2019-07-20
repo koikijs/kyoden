@@ -2,8 +2,11 @@ import React from 'react';
 import Head from 'next/head';
 import { Provider, connect } from 'react-redux';
 import App, { Container } from 'next/app';
+import initReactFastclick from 'react-fastclick';
 import Loading from '../components/Loading';
 import withReduxStore from '../reducers/with-redux-store';
+
+initReactFastclick();
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

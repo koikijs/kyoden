@@ -159,7 +159,7 @@ const connected = connect(
   state => ({
     eventName: state.event.item.name,
     aggPaidAmount: state.event.item.aggPaidAmount,
-    transferAmounts: state.event.item.transferAmounts || [],
+    transferAmounts: (state.event.item.transferAmounts || []).filter(amount => amount.amount),
     members: state.member.items,
     suggests: state.member.suggests,
     scrooge: state.scrooge.item,

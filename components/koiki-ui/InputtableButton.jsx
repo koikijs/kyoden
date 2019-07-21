@@ -19,10 +19,6 @@ class InputtableButton extends Component {
 
   render() {
     const blur = (evt) => {
-      this.setState({
-        clicked: false,
-        escaped: true,
-      });
       this.props.onBlur(evt);
     };
     const buttonProgress = `progress-${this.props.progress}`;
@@ -34,10 +30,10 @@ class InputtableButton extends Component {
                       this.state.clicked
                         ? this.props.styles.inputtableButton.clicked
                         : this.state.escaped
-                        ? this.props.styles.inputtableButton.escaped
-                        : this.state.focused
-                        ? this.props.styles.inputtableButton.focused
-                        : ''
+                          ? this.props.styles.inputtableButton.escaped
+                          : this.state.focused
+                            ? this.props.styles.inputtableButton.focused
+                            : ''
                     }
                     ${this.props.className}
                     ${

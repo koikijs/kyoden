@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import theme from '../../theme';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Button extends Component {
@@ -36,103 +37,89 @@ class Button extends Component {
           <i className={`fa ${this.props.icon}`} aria-hidden="true" />
           {this.props.text}
         </button>
-        <style jsx>{`
-          @keyframes push {
-            0% {
-              transform: scale(1);
+        <style jsx>
+          {`
+            @keyframes push {
+              0% {
+                transform: scale(1);
+              }
+              25% {
+                transform: scale(0.8);
+              }
+              75% {
+                transform: scale(1.05);
+              }
+              100% {
+                transform: scale(1);
+              }
             }
-            25% {
-              transform: scale(0.8);
+
+            @keyframes push-revert {
+              0% {
+                transform: scale(1);
+              }
+              25% {
+                transform: scale(0.8);
+              }
+              75% {
+                transform: scale(1.05);
+              }
+              100% {
+                transform: scale(1);
+              }
             }
-            75% {
-              transform: scale(1.05);
+
+            .container {
+              position: relative;
+              width: 100%;
+              height: auto;
             }
-            100% {
-              transform: scale(1);
+
+            .button {
+              position: absolute;
+              border: none;
+              border-radius: 3px;
+              background-color: ${theme.color.light};
+              color: ${theme.color.lightSecondary};
+              font-size: 1.25em;
+              height: 2em;
+              padding: 0px 20px;
+              top: 0;
+              left: 0;
+              width: 100%;
+              z-index: 1;
+              line-height: 1em;
+              transition-property: background-color;
+              transition-duration: 1s;
+              outline: none;
+              box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+              cursor: pointer;
             }
-          }
 
-          @keyframes push-revert {
-            0% {
-              transform: scale(1);
+            .button i {
+              margin-right: 10px;
+              margin-left: -10px;
             }
-            25% {
-              transform: scale(0.8);
+
+            .clicked {
+              animation: push 0.2s ease-out;
+              animation-fill-mode: forwards;
             }
-            75% {
-              transform: scale(1.05);
+
+            .escaped {
+              animation: push-revert 0.2s ease-out;
+              animation-fill-mode: forwards;
             }
-            100% {
-              transform: scale(1);
+
+            .container .disabled {
+              pointer-events: none;
+              background-color: #dcdddd;
+              color: #fffffc;
+              transition-property: color, background-color;
+              transition-duration: 1s;
             }
-          }
-
-          .container {
-            position: relative;
-            width: 100%;
-            padding: 1.75em;
-            height: auto;
-          }
-
-          .button {
-            position: absolute;
-            border: none;
-            border-radius: 3px;
-            background-color: #fffffc;
-            color: #38a1db;
-            font-size: 1.5em;
-            height: 2.25em;
-            padding: 0px 20px;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1;
-            line-height: 1em;
-            transition-property: background-color;
-            transition-duration: 1s;
-            outline: none;
-            box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-            cursor: pointer;
-          }
-
-          .primary {
-            background-color: #fffffc;
-            color: #38a1db;
-          }
-
-          .secondary {
-            background-color: #fffffc;
-            color: #ec6d71;
-          }
-
-          .third {
-            background-color: #fffffc;
-            color: #aacf53;
-          }
-
-          .button i {
-            margin-right: 10px;
-            margin-left: -10px;
-          }
-
-          .clicked {
-            animation: push 0.2s ease-out;
-            animation-fill-mode: forwards;
-          }
-
-          .escaped {
-            animation: push-revert 0.2s ease-out;
-            animation-fill-mode: forwards;
-          }
-
-          .container .disabled {
-            pointer-events: none;
-            background-color: #dcdddd;
-            color: #fffffc;
-            transition-property: color, background-color;
-            transition-duration: 1s;
-          }
-        `}</style>
+          `}
+        </style>
       </div>
     );
   }
@@ -140,9 +127,6 @@ class Button extends Component {
 
 Button.defaultProps = {
   className: '',
-  styles: {
-    button: require('../less/button.less'),
-  },
   color: 'primary',
   disabled: false,
   icon: 'fa-search',

@@ -1,11 +1,16 @@
 {
   "name": "kyoden",
   "version": 2,
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
   "routes": [
     {
       "src": "/(ja|en)/events/(.+)",
       "status": 301,
       "headers": { "Location": "https://kyoden.now.sh/events/$2" }
+    },
+    {
+      "src": "/sw-dist.js",
+      "dest": "/static/sw-dist.js"
     }
   ]
 }

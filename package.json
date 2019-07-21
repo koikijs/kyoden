@@ -12,7 +12,9 @@
   "main": "bin/server.js",
   "scripts": {
     "start": "next start",
-    "build": "next build",
+    "build": "next build && node generate-sw.js",
+    "deploy": "sh deploy.sh",
+    "now-build": "next build",
     "postinstall": "npm run build",
     "lint": "eslint -c .eslintrc src",
     "dev": "next"

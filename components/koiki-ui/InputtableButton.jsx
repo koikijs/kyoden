@@ -9,12 +9,25 @@ class InputtableButton extends Component {
       escaped: false,
       focused: props.focused,
     };
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillReceiveProps(props) {
     this.setState({
       value: props.value || this.state.value,
     });
+  }
+
+  onClick(evt) {
+    this.setState({
+      clicked: true,
+      escaped: false,
+    });
+    this.setState({
+      focused: true,
+    });
+    this.inputDOM.focus();
+    this.props.onClick(evt);
   }
 
   render() {
@@ -45,17 +58,8 @@ class InputtableButton extends Component {
       >
         <button
           className={this.props.styles.inputtableButton.button}
-          onClick={(evt) => {
-            this.setState({
-              clicked: true,
-              escaped: false,
-            });
-            this.setState({
-              focused: true,
-            });
-            this.inputDOM.focus();
-            this.props.onClick(evt);
-          }}
+          onClick={this.onClick}
+          onTouchStart={this.onClick}
         >
           <i className={`fa ${this.props.icon}`} aria-hidden="true" />
           {this.props.text}

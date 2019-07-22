@@ -1,22 +1,17 @@
 import React from 'react';
+import acceptLanguage from 'accept-language';
 
 const resources = {};
-const acceptLanguage = require('accept-language');
 
-try {
-  const klawSync = require('klaw-sync');
-  const fs = require('fs-extra');
-  const path = require('path');
-
-  const files = klawSync('locales', { nodir: true });
-  files.forEach((file) => {
-    const resource = fs.readJSONSync(file.path);
-    const lang = path.basename(file.path, '.json');
-    resources[lang] = resource;
+// TODO: Still exists locales on client bundle.
+//       Need to find a way to omit to locales on client to reduce bundle size.
+if (process.env.NODE_ENV) {
+  const supportedLanguages = ['en', 'ja'];
+  supportedLanguages.forEach((lang) => {
+    resources[lang] = require(`../locales/${lang}`).default;
   });
-
-  acceptLanguage.languages(['en', 'ja']);
-} catch (e) {}
+  acceptLanguage.languages(supportedLanguages);
+}
 export function get({ headers }) {
   if (typeof window !== 'undefined') {
     const { resource, lang } = window.__i18n;

@@ -19,6 +19,7 @@ import Scrooges from '../../components/Scrooges';
 import AddPayment from '../../components/AddPayment';
 import TransferPayments from '../../components/TransferPayments';
 import Loading from '../../components/Loading';
+import { Consumer } from '../../helpers/i18n';
 
 class Event extends Component {
   static async getInitialProps({ query }) {
@@ -39,82 +40,54 @@ class Event extends Component {
 
   render() {
     return (
-      <>
-        <Head>
-          <title>{this.props.eventName ? `${this.props.eventName} - kyoden` : 'kyoden'}</title>
-          <meta name="description" content="kyoden" />
-          <meta charSet="utf-8" />
-          <meta property="og:site_name" content="kyoden" />
-          <meta property="og:image" content="/static/images/favicon.png" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:title" content="kyoden" />
-          <meta property="og:description" content="kyoden" />
-          <meta property="og:card" content="summary" />
-          <meta property="og:creator" content="koiki" />
-          <meta property="og:image:width" content="300" />
-          <meta property="og:image:height" content="300" />
-        </Head>
-        <style jsx>
-          {`
-            .panels {
-              display: flex;
-              flex-direction: row;
-              justify-content: space-between;
-              align-items: stretch;
-              height: 100%;
-            }
+      <Consumer>
+        {i18n => (
+          <>
+            <Head>
+              <title>
+                {this.props.eventName
+                  ? `${this.props.eventName} - ${i18n.t('lead')}`
+                  : i18n.t('lead')}
+              </title>
+              <meta name="description" content="kyoden" />
+              <meta charSet="utf-8" />
+              <meta property="og:site_name" content="kyoden" />
+              <meta property="og:image" content="/static/images/favicon.png" />
+              <meta property="og:locale" content="en_US" />
+              <meta property="og:title" content="kyoden" />
+              <meta property="og:description" content="kyoden" />
+              <meta property="og:card" content="summary" />
+              <meta property="og:creator" content="koiki" />
+              <meta property="og:image:width" content="300" />
+              <meta property="og:image:height" content="300" />
+            </Head>
+            <style jsx>
+              {`
+                .panels {
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-between;
+                  align-items: stretch;
+                  height: 100%;
+                }
 
-            @media (max-width: 768px) {
-              .panels {
-                display: block;
-                height: auto;
-              }
-            }
-          `}
-        </style>
-        <div className="panels">
-          <Panel side="left">
-            <Logo />
-            <Title title={this.props.eventName} theme="black" align="left" />
-            <Members
-              suggests={this.props.suggests}
-              members={this.props.members}
-              onChangeInputName={this.props.changeInputName}
-              onSelectMember={member => fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                mode: 'cors',
-                credentials: 'include',
-                body: JSON.stringify({
-                  memberName: member.name,
-                  paidAmount: 0,
-                }),
-              })
-              }
-              onDeleteMember={member => fetch(
-                `${config.api.base}/events/${
-                  this.props.params.id
-                }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
-                {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  method: 'DELETE',
-                  mode: 'cors',
-                  credentials: 'include',
-                },
-              )
-              }
-            />
-            {this.props.members.length ? (
-              <AddPayment
-                scrooge={this.props.scrooge}
-                members={this.props.members}
-                onInputPayment={this.props.inputScrooge}
-                onSubmitPayment={() => {
-                  fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
+                @media (max-width: 768px) {
+                  .panels {
+                    display: block;
+                    height: auto;
+                  }
+                }
+              `}
+            </style>
+            <div className="panels">
+              <Panel side="left">
+                <Logo />
+                <Title title={this.props.eventName} theme="black" align="left" />
+                <Members
+                  suggests={this.props.suggests}
+                  members={this.props.members}
+                  onChangeInputName={this.props.changeInputName}
+                  onSelectMember={member => fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
                     headers: {
                       'Content-Type': 'application/json',
                     },
@@ -122,38 +95,77 @@ class Event extends Component {
                     mode: 'cors',
                     credentials: 'include',
                     body: JSON.stringify({
-                      ...this.props.scrooge,
-                      memberName: this.props.scrooge.memberName || this.props.members[0].id,
+                      memberName: member.name,
+                      paidAmount: 0,
                     }),
-                  });
-                  this.props.resetScrooge();
-                }}
-              />
-            ) : null}
-            <Scrooges
-              scrooges={this.props.scrooges}
-              onDeleteScrooge={(scrooge) => {
-                this.props.markAsRemovedScrooge(scrooge);
-                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  method: 'DELETE',
-                  mode: 'cors',
-                  credentials: 'include',
-                });
-              }}
-            />
-          </Panel>
-          <Panel side="right">
-            <Title title={this.props.eventName} theme="white" align="right" />
-            {this.props.transferAmounts.length ? (
-              <TransferPayments transferAmounts={this.props.transferAmounts} />
-            ) : null}
-          </Panel>
-        </div>
-        <Loading isActive={this.props.isLoading} />
-      </>
+                  })
+                  }
+                  onDeleteMember={member => fetch(
+                    `${config.api.base}/events/${
+                      this.props.params.id
+                    }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
+                    {
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      method: 'DELETE',
+                      mode: 'cors',
+                      credentials: 'include',
+                    },
+                  )
+                  }
+                />
+                {this.props.members.length ? (
+                  <AddPayment
+                    scrooge={this.props.scrooge}
+                    members={this.props.members}
+                    onInputPayment={this.props.inputScrooge}
+                    onSubmitPayment={() => {
+                      fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        method: 'POST',
+                        mode: 'cors',
+                        credentials: 'include',
+                        body: JSON.stringify({
+                          ...this.props.scrooge,
+                          memberName: this.props.scrooge.memberName || this.props.members[0].id,
+                        }),
+                      });
+                      this.props.resetScrooge();
+                    }}
+                  />
+                ) : null}
+                <Scrooges
+                  scrooges={this.props.scrooges}
+                  onDeleteScrooge={(scrooge) => {
+                    this.props.markAsRemovedScrooge(scrooge);
+                    fetch(
+                      `${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`,
+                      {
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        method: 'DELETE',
+                        mode: 'cors',
+                        credentials: 'include',
+                      },
+                    );
+                  }}
+                />
+              </Panel>
+              <Panel side="right">
+                <Title title={this.props.eventName} theme="white" align="right" />
+                {this.props.transferAmounts.length ? (
+                  <TransferPayments transferAmounts={this.props.transferAmounts} />
+                ) : null}
+              </Panel>
+            </div>
+            <Loading isActive={this.props.isLoading} />
+          </>
+        )}
+      </Consumer>
     );
   }
 }

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import ws from '../../helpers/ws';
 import config from '../../config';
-import { get } from '../../reducers/event';
+import { get, getStart } from '../../reducers/event';
 import { changeInputName } from '../../reducers/member';
 import {
   input as inputScrooge,
@@ -18,6 +18,7 @@ import Members from '../../components/Members';
 import Scrooges from '../../components/Scrooges';
 import AddPayment from '../../components/AddPayment';
 import TransferPayments from '../../components/TransferPayments';
+import Loading from '../../components/Loading';
 
 class Event extends Component {
   static async getInitialProps({ query }) {
@@ -25,6 +26,7 @@ class Event extends Component {
   }
 
   componentDidMount() {
+    this.props.getStart();
     this.ws = ws({
       url: `wss://${config.ws.origin}/?${this.props.params.id}`,
       onmessage: json => this.props.get(json),
@@ -150,6 +152,7 @@ class Event extends Component {
             ) : null}
           </Panel>
         </div>
+        <Loading isActive={this.props.isLoading} />
       </>
     );
   }
@@ -158,6 +161,7 @@ class Event extends Component {
 const connected = connect(
   state => ({
     eventName: state.event.item.name,
+    isLoading: state.event.loading,
     aggPaidAmount: state.event.item.aggPaidAmount,
     transferAmounts: (state.event.item.transferAmounts || []).filter(amount => amount.amount),
     members: state.member.items,
@@ -171,6 +175,7 @@ const connected = connect(
     inputScrooge,
     markAsRemovedScrooge,
     resetScrooge,
+    getStart,
   },
 )(Event);
 

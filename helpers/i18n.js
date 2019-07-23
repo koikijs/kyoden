@@ -35,7 +35,7 @@ export function get({ headers }) {
   );
 }
 
-const Context = React.createContext({
+export const Context = React.createContext({
   t: () => '',
   resource: {},
   lang: 'en',

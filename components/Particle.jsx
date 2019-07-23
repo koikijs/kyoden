@@ -73,8 +73,8 @@ const PARTICLES = {
 
 class Particle extends Component {
   componentDidMount() {
-    const createjs = window.createjs;
-    const particlejs = window.particlejs;
+    const { createjs } = window;
+    const { particlejs } = window;
     const stage = new createjs.Stage('canvas');
     const particleSystem = new particlejs.ParticleSystem();
     stage.addChild(particleSystem.container);
@@ -101,7 +101,7 @@ class Particle extends Component {
         width: document.body.clientWidth,
         height: document.body.clientHeight,
         startX: document.body.clientWidth / 2,
-        startY: document.body.clientHeight / 2 - 80,
+        startY: document.body.clientHeight / 2 - 120,
       });
     } else if (nextProps.value === 'snow' && nextProps.value !== this.props.value) {
       const canvas = this.canvasElem;
@@ -124,22 +124,24 @@ class Particle extends Component {
     return (
       <>
         <canvas
-          ref={elem => {
+          ref={(elem) => {
             this.canvasElem = elem;
           }}
           className="particle"
           id="canvas"
         />
-        <style jsx>{`
-          .particle {
-            position: absolute;
-            z-index: 0;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-          }
-        `}</style>
+        <style jsx>
+          {`
+            .particle {
+              position: absolute;
+              z-index: 0;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+            }
+          `}
+        </style>
       </>
     );
   }

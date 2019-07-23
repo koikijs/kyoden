@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
 import { connect } from 'react-redux';
@@ -14,57 +14,56 @@ import SWRegister from '../components/SWRegister';
 import uris from '../uris';
 import config from '../config';
 import { stringify } from '../helpers/url';
-import { Consumer } from '../helpers/i18n';
+import { Context } from '../helpers/i18n';
 
-const Home = props => (
-  <Consumer>
-    {i18n => (
-      <>
-        <Head>
-          <title>{`${i18n.t('sublead')} - ${i18n.t('lead')}`}</title>
-        </Head>
-        <Signature
-          lead={i18n.t('lead')}
-          sublead={i18n.t('sublead')}
-          eventName={props.eventName}
-          onEventChange={(values) => {
-            props.changeEvent(values);
-          }}
-          onEventSubmit={(values) => {
-            props.saveStartEvent();
-            fetch(`${config.api.base}/events`, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              method: 'POST',
-              mode: 'cors',
-              credentials: 'include',
-              body: JSON.stringify(values),
+const Home = (props) => {
+  const i18n = useContext(Context);
+  return (
+    <>
+      <Head>
+        <title>{`${i18n.t('sublead')} - ${i18n.t('lead')}`}</title>
+      </Head>
+      <Signature
+        lead={i18n.t('lead')}
+        sublead={i18n.t('sublead')}
+        eventName={props.eventName}
+        onEventChange={(values) => {
+          props.changeEvent(values);
+        }}
+        onEventSubmit={(values) => {
+          props.saveStartEvent();
+          fetch(`${config.api.base}/events`, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            mode: 'cors',
+            credentials: 'include',
+            body: JSON.stringify(values),
+          })
+            .then((res) => {
+              if (res.ok) {
+                props.saveSuccessEvent({});
+                // TODO change way to get id
+                // koiki better to fetch URL if location header has response.
+                // then the body need to pass in callback
+                const id = res.headers.get('location').match(/\/events\/(.+)$/)[1];
+                Router.push(stringify(uris.pages.event, { id }));
+              } else {
+                return Promise.reject(res);
+              }
             })
-              .then((res) => {
-                if (res.ok) {
-                  props.saveSuccessEvent({});
-                  // TODO change way to get id
-                  // koiki better to fetch URL if location header has response.
-                  // then the body need to pass in callback
-                  const id = res.headers.get('location').match(/\/events\/(.+)$/)[1];
-                  Router.push(stringify(uris.pages.event, { id }));
-                } else {
-                  return Promise.reject(res);
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-                props.saveFailEvent(error);
-              });
-          }}
-        />
-        <Loading isActive={props.isLoading} />
-        <SWRegister />
-      </>
-    )}
-  </Consumer>
-);
+            .catch((error) => {
+              console.log(error);
+              props.saveFailEvent(error);
+            });
+        }}
+      />
+      <Loading isActive={props.isLoading} />
+      <SWRegister />
+    </>
+  );
+};
 
 const connected = connect(
   state => ({

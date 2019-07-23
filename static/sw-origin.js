@@ -2,8 +2,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open('static')
-      .then(cache => cache.addAll(/** CACHE_TARGET_LIST */))
-      .catch(error => console.error(error)),
+      .then(cache => cache.addAll(['/offline', '/static/images/favicon.png', '/static/css/normalize.css', '/static/pulltorefresh.min.js', '/static/pulltorefresh-init.js']))
+      .catch(error => console.error(error))
   );
 });
 
@@ -20,7 +20,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(event.request).catch(
         () => console.log('## Response offline page') || caches.match('/offline'),
-      ),
+      )
     );
   } else {
     event.respondWith(
@@ -31,7 +31,7 @@ self.addEventListener('fetch', (event) => {
         }
         console.log('## Response from origin', event.request.url);
         return fetch(event.request);
-      }),
+      })
     );
   }
 });

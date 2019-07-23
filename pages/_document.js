@@ -33,11 +33,10 @@ export default class MyDocument extends Document {
             <meta property="og:image:width" content="300" />
             <meta property="og:image:height" content="300" />
             <link rel="manifest" href="/static/manifest.json" />
-            <link rel="shortcut icon" href="/static/images/favicon.png" />
+            <link rel="icon" href="/static/images/favicon.png" />
             <link rel="apple-touch-icon" href="/static/images/favicon.png" />
             <script src="https://code.createjs.com/createjs-2015.11.26.min.js" />
             <script src="https://cdn.rawgit.com/ics-creative/ParticleJS/release/0.1.31/libs/particlejs.min.js" />
-            <link rel="shortcut icon" href="/static/images/favicon.png" />
             <link
               rel="stylesheet"
               type="text/css"

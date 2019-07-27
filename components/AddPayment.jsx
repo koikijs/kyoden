@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import theme from '../theme';
 import Input from './koiki-ui/Input';
 import Selectbox from './koiki-ui/Selectbox';
-import { Consumer } from '../helpers/i18n';
+import { Context } from '../helpers/i18n';
 
 const AddPayment = (props) => {
   const selected = props.members.find(member => member.name === props.scrooge.memberName)

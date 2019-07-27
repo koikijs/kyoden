@@ -26,6 +26,8 @@ class Event extends Component {
     return { params: query };
   }
 
+  static contextType = Context;
+
   componentDidMount() {
     this.props.getStart();
     this.ws = ws({
@@ -39,7 +41,7 @@ class Event extends Component {
   }
 
   render() {
-    const i18n = useContext(Context);
+    const i18n = this.context;
 
     return (
       <>
@@ -85,32 +87,34 @@ class Event extends Component {
               suggests={this.props.suggests}
               members={this.props.members}
               onChangeInputName={this.props.changeInputName}
-              onSelectMember={member => fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                mode: 'cors',
-                credentials: 'include',
-                body: JSON.stringify({
-                  memberName: member.name,
-                  paidAmount: 0,
-                }),
-              })
-              }
-              onDeleteMember={member => fetch(
-                `${config.api.base}/events/${
-                  this.props.params.id
-                }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
-                {
+              onSelectMember={member =>
+                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
                   headers: {
                     'Content-Type': 'application/json',
                   },
-                  method: 'DELETE',
+                  method: 'POST',
                   mode: 'cors',
                   credentials: 'include',
-                },
-              )
+                  body: JSON.stringify({
+                    memberName: member.name,
+                    paidAmount: 0,
+                  }),
+                })
+              }
+              onDeleteMember={member =>
+                fetch(
+                  `${config.api.base}/events/${
+                    this.props.params.id
+                  }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    method: 'DELETE',
+                    mode: 'cors',
+                    credentials: 'include',
+                  },
+                )
               }
             />
             {this.props.members.length ? (
@@ -137,7 +141,7 @@ class Event extends Component {
             ) : null}
             <Scrooges
               scrooges={this.props.scrooges}
-              onDeleteScrooge={(scrooge) => {
+              onDeleteScrooge={scrooge => {
                 this.props.markAsRemovedScrooge(scrooge);
                 fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
                   headers: {

@@ -1,24 +1,21 @@
 import React, { Component, useContext } from 'react';
 import Head from 'next/head';
+import animals from 'animals';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import ws from '../../helpers/ws';
 import config from '../../config';
-import { get, getStart } from '../../reducers/event';
-import { changeInputName } from '../../reducers/member';
-import {
-  input as inputScrooge,
-  markAsRemoved as markAsRemovedScrooge,
-  reset as resetScrooge,
-} from '../../reducers/scrooge';
+import { get, getStart, selectGroup } from '../../reducers/event';
 import Panel from '../../components/Panel';
 import Logo from '../../components/Logo';
 import Title from '../../components/Title';
+import GroupName from '../../components/GroupName';
 import Members from '../../components/Members';
 import Scrooges from '../../components/Scrooges';
 import AddPayment from '../../components/AddPayment';
 import TransferPayments from '../../components/TransferPayments';
 import Loading from '../../components/Loading';
+import Tabs from '../../components/Tabs';
 import { Context } from '../../helpers/i18n';
 
 class Event extends Component {
@@ -42,24 +39,12 @@ class Event extends Component {
 
   render() {
     const i18n = this.context;
-
     return (
       <>
         <Head>
           <title>
             {this.props.eventName ? `${this.props.eventName} - ${i18n.t('lead')}` : i18n.t('lead')}
           </title>
-          <meta name="description" content="kyoden" />
-          <meta charSet="utf-8" />
-          <meta property="og:site_name" content="kyoden" />
-          <meta property="og:image" content="/static/images/favicon.png" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:title" content="kyoden" />
-          <meta property="og:description" content="kyoden" />
-          <meta property="og:card" content="summary" />
-          <meta property="og:creator" content="koiki" />
-          <meta property="og:image:width" content="300" />
-          <meta property="og:image:height" content="300" />
         </Head>
         <style jsx>
           {`
@@ -83,10 +68,66 @@ class Event extends Component {
           <Panel side="left">
             <Logo />
             <Title title={this.props.eventName} theme="black" align="left" />
+            <Tabs
+              tabs={this.props.groups.map(group => ({
+                id: group.id,
+                text: group.name,
+                isActive: group.id === this.props.selected.id,
+              }))}
+              onClickTab={tab =>
+                this.props.selectGroup({
+                  id: tab.id,
+                  name: tab.text,
+                })
+              }
+              onClickDelete={tab =>
+                fetch(`${config.api.base}/events/${this.props.params.id}/groups/${tab.id}`, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  method: 'DELETE',
+                  mode: 'cors',
+                  credentials: 'include',
+                })
+              }
+              onClickAdd={() =>
+                fetch(`${config.api.base}/events/${this.props.params.id}/groups/_add`, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  method: 'POST',
+                  mode: 'cors',
+                  credentials: 'include',
+                  body: JSON.stringify({
+                    name: animals(),
+                  }),
+                })
+              }
+            />
+            <GroupName
+              name={this.props.selected.name}
+              onSubmit={name =>
+                fetch(
+                  `${config.api.base}/events/${this.props.params.id}/groups/${
+                    this.props.selected.id
+                  }`,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    method: 'PATCH',
+                    mode: 'cors',
+                    credentials: 'include',
+                    body: JSON.stringify({
+                      name,
+                    }),
+                  },
+                )
+              }
+            />
             <Members
               suggests={this.props.suggests}
               members={this.props.members}
-              onChangeInputName={this.props.changeInputName}
               onSelectMember={member =>
                 fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
                   headers: {
@@ -119,10 +160,8 @@ class Event extends Component {
             />
             {this.props.members.length ? (
               <AddPayment
-                scrooge={this.props.scrooge}
                 members={this.props.members}
-                onInputPayment={this.props.inputScrooge}
-                onSubmitPayment={() => {
+                onSubmitPayment={payment => {
                   fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
                     headers: {
                       'Content-Type': 'application/json',
@@ -130,19 +169,14 @@ class Event extends Component {
                     method: 'POST',
                     mode: 'cors',
                     credentials: 'include',
-                    body: JSON.stringify({
-                      ...this.props.scrooge,
-                      memberName: this.props.scrooge.memberName || this.props.members[0].id,
-                    }),
+                    body: JSON.stringify(payment),
                   });
-                  this.props.resetScrooge();
                 }}
               />
             ) : null}
             <Scrooges
               scrooges={this.props.scrooges}
               onDeleteScrooge={scrooge => {
-                this.props.markAsRemovedScrooge(scrooge);
                 fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
                   headers: {
                     'Content-Type': 'application/json',
@@ -171,19 +205,15 @@ const connected = connect(
   state => ({
     eventName: state.event.item.name,
     isLoading: state.event.loading,
-    aggPaidAmount: state.event.item.aggPaidAmount,
-    transferAmounts: (state.event.item.transferAmounts || []).filter(amount => amount.amount),
-    members: state.member.items,
-    suggests: state.member.suggests,
-    scrooge: state.scrooge.item,
-    scrooges: state.scrooge.items,
+    transferAmounts: state.event.item.transferAmounts,
+    members: state.event.selected.members,
+    scrooges: state.event.selected.scrooges,
+    selected: state.event.selected,
+    groups: state.event.item.groups,
   }),
   {
     get,
-    changeInputName,
-    inputScrooge,
-    markAsRemovedScrooge,
-    resetScrooge,
+    selectGroup,
     getStart,
   },
 )(Event);

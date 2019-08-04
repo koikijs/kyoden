@@ -7,7 +7,8 @@ export default {
   attendees: '参加者',
   invoices: '立替金',
   'money-transfer': '必要な送金',
-  'tell-me-attendee-name': '参加者の名前',
+  'tell-me-attendee-name': '参加者名',
   amount: '金額',
   reason: '理由',
+  'tell-me-group-name': 'グループ名',
 };

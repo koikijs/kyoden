@@ -1,16 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import theme from '../theme';
 import Input from './koiki-ui/Input';
 import Selectbox from './koiki-ui/Selectbox';
-import { Consumer } from '../helpers/i18n';
+import { Context } from '../helpers/i18n';
 
 const AddPayment = (props) => {
-  const selected = props.members.find(member => member.name === props.scrooge.memberName)
-    || props.members[0] || {
-    id: '',
-    name: '',
-  };
   const i18n = useContext(Context);
+  const defaultPayment = {
+    member: {
+      text: props.members[0].name,
+      value: props.members[0].id,
+    },
+    paidAmount: '',
+    forWhat: '',
+  };
+  const [payment, setPayment] = useState(defaultPayment);
+  const onSubmitPayment = () => {
+    props.onSubmitPayment({
+      memberName: payment.member.value,
+      paidAmount: payment.paidAmount,
+      forWhat: payment.forWhat,
+    });
+    setPayment(defaultPayment);
+  };
 
   return (
     <>
@@ -62,14 +74,12 @@ const AddPayment = (props) => {
       <div className="addPayment">
         <div className="column">
           <Selectbox
-            onSelect={option => props.onInputPayment({
-              memberName: option.value,
+            onSelect={option => setPayment({
+              ...payment,
+              member: option,
             })
             }
-            selected={{
-              text: selected.name,
-              value: selected.id,
-            }}
+            selected={payment.member}
             options={props.members.map(member => ({
               text: member.name,
               value: member.id,
@@ -82,24 +92,26 @@ const AddPayment = (props) => {
             type="number"
             align="right"
             placeholder={i18n.t('amount')}
-            value={props.scrooge.paidAmount}
-            onChange={event => props.onInputPayment({
+            value={payment.paidAmount}
+            onChange={event => setPayment({
+              ...payment,
               paidAmount: event.target.value,
             })
             }
-            onSubmit={props.onSubmitPayment}
+            onSubmit={onSubmitPayment}
           />
         </div>
         <div className="column">
           <Input
             icon="fa-commenting-o"
             placeholder={i18n.t('reason')}
-            value={props.scrooge.forWhat}
-            onChange={event => props.onInputPayment({
+            value={payment.forWhat}
+            onChange={event => setPayment({
+              ...payment,
               forWhat: event.target.value,
             })
             }
-            onSubmit={props.onSubmitPayment}
+            onSubmit={onSubmitPayment}
           />
         </div>
       </div>

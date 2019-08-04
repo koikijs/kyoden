@@ -10,4 +10,5 @@ export default {
   'tell-me-attendee-name': 'Tell me attendee name',
   amount: 'Amount',
   reason: 'Reason',
+  'tell-me-group-name': 'Tell me group Name',
 };

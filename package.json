@@ -22,6 +22,7 @@
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
     "accept-language": "^3.0.18",
+    "animals": "0.0.3",
     "body-parser": "^1.14.2",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.3",

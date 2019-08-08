@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
     const i18n = get({ headers });
 
     return (
-      <html>
+      <html lang={i18n.lang}>
         <Head>
           <meta
             name="viewport"

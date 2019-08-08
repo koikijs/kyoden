@@ -68,6 +68,7 @@ class InputtableButton extends Component {
           ref={(elem) => {
             this.inputDOM = elem;
           }}
+          type="text"
           className={this.props.styles.inputtableButton.input}
           placeholder={this.props.placeholder}
           autoFocus={this.props.focused}

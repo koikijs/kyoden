@@ -83,6 +83,7 @@ class InputtableButton extends Component {
               default:
             }
           }}
+          aria-label={this.props.placeholder}
           onChange={evt => this.props.onChange(evt)}
           onBlur={evt => blur(evt)}
         />

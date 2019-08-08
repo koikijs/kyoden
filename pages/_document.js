@@ -22,6 +22,7 @@ export default class MyDocument extends Document {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="description" content="kyoden" />
           <meta charSet="utf-8" />
+          <meta name="theme-color" content="#e6e38e" />
           <meta property="og:site_name" content="kyoden" />
           <meta property="og:image" content="/static/images/favicon.png" />
           <meta property="og:locale" content="en_US" />
@@ -34,8 +35,8 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/static/manifest.json" />
           <link rel="icon" href="/static/images/favicon.png" />
           <link rel="apple-touch-icon" href="/static/images/favicon.png" />
-          <script src="https://code.createjs.com/createjs-2015.11.26.min.js" />
-          <script src="https://cdn.rawgit.com/ics-creative/ParticleJS/release/0.1.31/libs/particlejs.min.js" />
+          <script src="/static/createjs-2015.11.26.min.js" />
+          <script src="/static/particlejs.min.js" />
           <link
             rel="stylesheet"
             type="text/css"

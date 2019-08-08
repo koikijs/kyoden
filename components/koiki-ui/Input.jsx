@@ -26,8 +26,8 @@ class Input extends Component {
                       this.state.clicked
                         ? this.props.styles.input.clicked
                         : this.state.escaped
-                        ? this.props.styles.input.escaped
-                        : ''
+                          ? this.props.styles.input.escaped
+                          : ''
                     }
                     ${this.props.className}
                     ${this.props.styles.input[progress]}
@@ -49,6 +49,7 @@ class Input extends Component {
             this.props.styles.input[this.props.align]
           }`}
           placeholder={this.props.placeholder}
+          aria-label={this.props.placeholder}
           value={this.state.value}
           type={this.props.type}
           pattern={this.props.type === 'number' ? '\\d*' : undefined}

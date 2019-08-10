@@ -11,9 +11,9 @@ class Chips extends Component {
       focusedIndex: 0,
     };
   }
+
   componentDidMount() {
-    this.wrappedHandleClickOutside = evt =>
-      this.handleClickOutside(evt, this.input, this.suggestsDOM);
+    this.wrappedHandleClickOutside = evt => this.handleClickOutside(evt, this.input, this.suggestsDOM);
     document.addEventListener('click', this.wrappedHandleClickOutside, true);
   }
 
@@ -23,8 +23,8 @@ class Chips extends Component {
 
   handleClickOutside(evt, input, suggestsDOM) {
     if (
-      (!input || !input.inputDOM || !input.inputDOM.contains(evt.target)) &&
-      (!suggestsDOM || !suggestsDOM.contains(evt.target))
+      (!input || !input.inputDOM || !input.inputDOM.contains(evt.target))
+      && (!suggestsDOM || !suggestsDOM.contains(evt.target))
     ) {
       this.setState({
         display: false,
@@ -123,23 +123,24 @@ class Chips extends Component {
                         src={suggest.image}
                         alt={suggest.name}
                       />
-                      ) : null}
+                    ) : null}
                     <div className={this.props.styles.chips.text}>{suggest.name}</div>
                   </a>
                 </li>
-                ))
+              ))
               : ''}
           </ul>
         </div>
         <ul className={this.props.styles.chips.chips}>
           {this.props.chips.map(tag => (
-            <IconButton
-              styles={this.props.styles}
-              key={tag.id}
-              item={tag}
-              onClick={tag => this.props.onDelete(tag)}
-              type="delete"
-            />
+            <li key={tag.id}>
+              <IconButton
+                styles={this.props.styles}
+                item={tag}
+                onClick={tag => this.props.onDelete(tag)}
+                type="delete"
+              />
+            </li>
           ))}
         </ul>
       </div>

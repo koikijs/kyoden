@@ -36,6 +36,7 @@ const Tabs = ({
           >
             <span>{tab.text}</span>
             <button
+              aria-label="delete"
               onClick={(evt) => {
                 evt.preventDefault();
                 onClickDelete(tab);

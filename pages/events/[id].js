@@ -64,7 +64,7 @@ class Event extends Component {
             }
           `}
         </style>
-        <div className="panels">
+        <main className="panels">
           <Panel side="left">
             <Logo />
             <Title title={this.props.eventName} theme="black" align="left" />
@@ -194,7 +194,7 @@ class Event extends Component {
               <TransferPayments transferAmounts={this.props.transferAmounts} />
             ) : null}
           </Panel>
-        </div>
+        </main>
         <Loading isActive={this.props.isLoading} />
       </>
     );

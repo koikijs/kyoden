@@ -19,7 +19,11 @@ const Scrooges = (props) => {
               </td>
               <td className="reason">{scrooge.forWhat}</td>
               <td className="delete">
-                <button className="trash" onClick={() => props.onDeleteScrooge(scrooge)}>
+                <button
+                  aria-label="delete"
+                  className="trash"
+                  onClick={() => props.onDeleteScrooge(scrooge)}
+                >
                   <i className="fa fa-trash" />
                 </button>
               </td>

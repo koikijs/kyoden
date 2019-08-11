@@ -31,7 +31,7 @@ class Loading extends Component {
               left: 50%;
               opacity: 1;
               transform: translate(-50%, -50%) rotate(15deg);
-              animation: rotation 5s linear infinite;
+              animation: rotation 10s linear infinite;
               z-index: 9999;
             }
 

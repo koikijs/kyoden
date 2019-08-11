@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 
 import theme from '../theme';
 
-const points =
-  '150.41 236.29 236.29 150.41 204.86 33.11 87.55 1.67 1.67 87.55 33.11 204.86 150.41 236.29';
+const points = '150.41 236.29 236.29 150.41 204.86 33.11 87.55 1.67 1.67 87.55 33.11 204.86 150.41 236.29';
 
 class Loading extends Component {
   render() {
@@ -12,132 +11,134 @@ class Loading extends Component {
     }
     return (
       <div className="modal">
-        <style jsx>{`
-          .modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: ${theme.color.darkWithOpacity};
-            z-index: 9998;
-          }
+        <style jsx>
+          {`
+            .modal {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: ${theme.color.darkWithOpacity};
+              z-index: 9998;
+            }
 
-          .loading {
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            opacity: 1;
-            transform: translate(-50%, -50%) rotate(15deg);
-            animation: rotation 0.5s linear infinite;
-            z-index: 9999;
-          }
-
-          .undifined {
-            display: none;
-          }
-
-          .loading svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            fill: #b5ae2e;
-          }
-
-          .loading circle {
-            fill: ${theme.color.lightSecondary};
-          }
-
-          .a0 {
-            z-index: 1;
-          }
-
-          .a1 {
-            animation: spin 3.6s steps(6) infinite, rotate-opacity 0.6s ease-in infinite;
-            animation-delay: 0s;
-            fill: #e6e38e;
-          }
-
-          .a2 {
-            animation: spin 3.6s steps(6) infinite, rotate-opacity 0.6s ease-in infinite;
-            animation-delay: 0.15s;
-            fill: #e6e38e;
-          }
-
-          .a3 {
-            animation: spin 3.6s steps(6) infinite, rotate-opacity 0.6s ease-in infinite;
-            animation-delay: 0.3s;
-            fill: #e6e38e;
-          }
-
-          .cls {
-            fill: none;
-            stroke: ${theme.color.lightSecondary};
-            stroke-miterlimit: 10;
-            stroke-width: 3px;
-          }
-
-          @keyframes fadeout {
-            0% {
+            .loading {
+              width: 100px;
+              height: 100px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
               opacity: 1;
-            }
-            100% {
-              opacity: 0;
-            }
-          }
-
-          @keyframes fadein {
-            0% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
-
-          @keyframes spin {
-            0% {
+              transform: translate(-50%, -50%) rotate(15deg);
+              animation: rotation 5s linear infinite;
+              z-index: 9999;
             }
 
-            100% {
-              transform: rotate(360deg);
-              transform-origin: 50% 50%;
-              opacity: 1;
-            }
-          }
-          @keyframes rotatation {
-            0% {
-              transform: rotate(15deg);
+            .undifined {
+              display: none;
             }
 
-            50% {
-              transform: rotate(140deg);
+            .loading svg {
+              position: absolute;
+              top: 0;
+              left: 0;
+              fill: #b5ae2e;
             }
 
-            75% {
-              transform: rotate(210deg);
+            .loading circle {
+              fill: ${theme.color.lightSecondary};
             }
 
-            100% {
-              transform: rotate(375deg);
-            }
-          }
-          @keyframes rotate-opacity {
-            0% {
-              opacity: 0;
+            .a0 {
+              z-index: 1;
             }
 
-            50% {
-              opacity: 1;
+            .a1 {
+              animation: spin 3.6s steps(6) infinite, rotate-opacity 0.6s ease-in infinite;
+              animation-delay: 0s;
+              fill: #e6e38e;
             }
 
-            100% {
-              opacity: 0;
+            .a2 {
+              animation: spin 3.6s steps(6) infinite, rotate-opacity 0.6s ease-in infinite;
+              animation-delay: 0.15s;
+              fill: #e6e38e;
             }
-          }
-        `}</style>
+
+            .a3 {
+              animation: spin 3.6s steps(6) infinite, rotate-opacity 0.6s ease-in infinite;
+              animation-delay: 0.3s;
+              fill: #e6e38e;
+            }
+
+            .cls {
+              fill: none;
+              stroke: ${theme.color.lightSecondary};
+              stroke-miterlimit: 10;
+              stroke-width: 3px;
+            }
+
+            @keyframes fadeout {
+              0% {
+                opacity: 1;
+              }
+              100% {
+                opacity: 0;
+              }
+            }
+
+            @keyframes fadein {
+              0% {
+                opacity: 0;
+              }
+              100% {
+                opacity: 1;
+              }
+            }
+
+            @keyframes spin {
+              0% {
+              }
+
+              100% {
+                transform: rotate(360deg);
+                transform-origin: 50% 50%;
+                opacity: 1;
+              }
+            }
+            @keyframes rotation {
+              0% {
+                transform: translate(-50%, -50%) rotate(15deg);
+              }
+
+              50% {
+                transform: translate(-50%, -50%) rotate(140deg);
+              }
+
+              75% {
+                transform: translate(-50%, -50%) rotate(210deg);
+              }
+
+              100% {
+                transform: translate(-50%, -50%) rotate(375deg);
+              }
+            }
+            @keyframes rotate-opacity {
+              0% {
+                opacity: 0;
+              }
+
+              50% {
+                opacity: 1;
+              }
+
+              100% {
+                opacity: 0;
+              }
+            }
+          `}
+        </style>
         <div className="loading">
           <svg
             className="a0"

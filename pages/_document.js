@@ -4,11 +4,12 @@ import { get } from '../helpers/i18n';
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps, headers: ctx.req.headers };
+    const ext = /iPhone|iPad/.test(ctx.req.headers['user-agent']) ? 'png' : 'webp';
+    return { ...initialProps, headers: ctx.req.headers, ext };
   }
 
   render() {
-    const { headers } = this.props;
+    const { headers, ext } = this.props;
 
     const i18n = get({ headers });
 
@@ -17,14 +18,14 @@ export default class MyDocument extends Document {
         <Head>
           <meta
             name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
           />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="description" content="kyoden" />
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#e6e38e" />
           <meta property="og:site_name" content="kyoden" />
-          <meta property="og:image" content="/static/images/favicon.png" />
+          <meta property="og:image" content={`/static/images/favicon.${ext}`} />
           <meta property="og:locale" content="en_US" />
           <meta property="og:title" content="kyoden" />
           <meta property="og:description" content="kyoden" />
@@ -33,14 +34,14 @@ export default class MyDocument extends Document {
           <meta property="og:image:width" content="300" />
           <meta property="og:image:height" content="300" />
           <link rel="manifest" href="/static/manifest.json" />
-          <link rel="icon" href="/static/images/favicon.png" />
-          <link rel="apple-touch-icon" href="/static/images/favicon.png" />
+          <link rel="icon" href={`/static/images/favicon.${ext}`} />
+          <link rel="apple-touch-icon" href={`/static/images/favicon.${ext}`} />
           <script src="/static/createjs-2015.11.26.min.js" />
           <script src="/static/particlejs.min.js" />
           <link
             rel="stylesheet"
             type="text/css"
-            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400"
+            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400&display=swap"
           />
           <link
             rel="stylesheet"

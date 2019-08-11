@@ -1,6 +1,7 @@
 {
   "name": "kyoden",
   "version": 2,
+  "alias": "kyoden.now.sh",
   "builds": [{ "src": "package.json", "use": "@now/next" }],
   "routes": [
     {

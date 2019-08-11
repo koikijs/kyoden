@@ -18,6 +18,14 @@ import Loading from '../../components/Loading';
 import Tabs from '../../components/Tabs';
 import { Context } from '../../helpers/i18n';
 
+const defaults = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  mode: 'cors',
+  credentials: 'include',
+};
+
 class Event extends Component {
   static async getInitialProps({ query }) {
     return { params: query };
@@ -82,22 +90,14 @@ class Event extends Component {
               }
               onClickDelete={tab =>
                 fetch(`${config.api.base}/events/${this.props.params.id}/groups/${tab.id}`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+                  ...defaults,
                   method: 'DELETE',
-                  mode: 'cors',
-                  credentials: 'include',
                 })
               }
               onClickAdd={() =>
                 fetch(`${config.api.base}/events/${this.props.params.id}/groups/_add`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+                  ...defaults,
                   method: 'POST',
-                  mode: 'cors',
-                  credentials: 'include',
                   body: JSON.stringify({
                     name: animals(),
                   }),
@@ -112,12 +112,8 @@ class Event extends Component {
                     this.props.selected.id
                   }`,
                   {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
+                    ...defaults,
                     method: 'PATCH',
-                    mode: 'cors',
-                    credentials: 'include',
                     body: JSON.stringify({
                       name,
                     }),
@@ -130,12 +126,8 @@ class Event extends Component {
               members={this.props.members}
               onSelectMember={member =>
                 fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+                  ...defaults,
                   method: 'POST',
-                  mode: 'cors',
-                  credentials: 'include',
                   body: JSON.stringify({
                     memberName: member.name,
                     paidAmount: 0,
@@ -148,12 +140,8 @@ class Event extends Component {
                     this.props.params.id
                   }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
                   {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
+                    ...defaults,
                     method: 'DELETE',
-                    mode: 'cors',
-                    credentials: 'include',
                   },
                 )
               }
@@ -163,12 +151,8 @@ class Event extends Component {
                 members={this.props.members}
                 onSubmitPayment={payment => {
                   fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
+                    ...defaults,
                     method: 'POST',
-                    mode: 'cors',
-                    credentials: 'include',
                     body: JSON.stringify(payment),
                   });
                 }}
@@ -178,12 +162,8 @@ class Event extends Component {
               scrooges={this.props.scrooges}
               onDeleteScrooge={scrooge => {
                 fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+                  ...defaults,
                   method: 'DELETE',
-                  mode: 'cors',
-                  credentials: 'include',
                 });
               }}
             />

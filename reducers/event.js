@@ -13,7 +13,14 @@ const initialState = {
   item: {
     name: '',
     transferAmounts: [],
-    groups: [{ id: '', name: '', scrooges: [] }],
+    groups: [
+      {
+        id: '',
+        name: '',
+        scrooges: [],
+        members: [],
+      },
+    ],
   },
   selected: {
     id: '',
@@ -54,7 +61,9 @@ export default function reducer(state = initialState, action = {}) {
         ],
       };
 
-      const selected = state.selected.id ? state.selected : item.groups[0];
+      const selected = state.selected.id
+        ? item.groups.find(group => group.id === state.selected.id)
+        : item.groups[0];
       return {
         ...state,
         loading: false,
@@ -108,26 +117,6 @@ export default function reducer(state = initialState, action = {}) {
     default:
       return state;
   }
-}
-
-export function saveStart(item) {
-  return {
-    type: SAVE_START,
-  };
-}
-
-export function saveSuccess(body) {
-  return {
-    type: SAVE_SUCCESS,
-    body,
-  };
-}
-
-export function saveFail(body) {
-  return {
-    type: SAVE_FAIL,
-    body,
-  };
 }
 
 export function get(item) {

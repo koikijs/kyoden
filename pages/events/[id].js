@@ -16,7 +16,7 @@ import AddPayment from '../../components/AddPayment';
 import TransferPayments from '../../components/TransferPayments';
 import Loading from '../../components/Loading';
 import Tabs from '../../components/Tabs';
-import { Context } from '../../helpers/i18n';
+import { Context } from '../../helpers/context';
 
 const defaults = {
   headers: {
@@ -46,7 +46,7 @@ class Event extends Component {
   }
 
   render() {
-    const i18n = this.context;
+    const { i18n, fetcher } = this.context;
     return (
       <>
         <Head>
@@ -89,83 +89,64 @@ class Event extends Component {
                 })
               }
               onClickDelete={tab =>
-                fetch(`${config.api.base}/events/${this.props.params.id}/groups/${tab.id}`, {
-                  ...defaults,
-                  method: 'DELETE',
+                fetcher.group.remove({
+                  id: this.props.params.id,
+                  group: tab.id,
                 })
               }
               onClickAdd={() =>
-                fetch(`${config.api.base}/events/${this.props.params.id}/groups/_add`, {
-                  ...defaults,
-                  method: 'POST',
-                  body: JSON.stringify({
-                    name: animals(),
-                  }),
+                fetcher.group.add({
+                  id: this.props.params.id,
+                  name: animals(),
                 })
               }
             />
             <GroupName
               name={this.props.selected.name}
               onSubmit={name =>
-                fetch(
-                  `${config.api.base}/events/${this.props.params.id}/groups/${
-                    this.props.selected.id
-                  }`,
-                  {
-                    ...defaults,
-                    method: 'PATCH',
-                    body: JSON.stringify({
-                      name,
-                    }),
-                  },
-                )
+                fetcher.group.update({
+                  id: this.props.params.id,
+                  group: this.props.selected.id,
+                  name,
+                })
               }
             />
             <Members
               suggests={this.props.suggests}
               members={this.props.members}
               onSelectMember={member =>
-                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                  ...defaults,
-                  method: 'POST',
-                  body: JSON.stringify({
-                    memberName: member.name,
-                    paidAmount: 0,
-                  }),
+                fetcher.scrooge.add({
+                  id: this.props.params.id,
+                  memberName: member.name,
+                  paidAmount: 0,
                 })
               }
               onDeleteMember={member =>
-                fetch(
-                  `${config.api.base}/events/${
-                    this.props.params.id
-                  }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
-                  {
-                    ...defaults,
-                    method: 'DELETE',
-                  },
-                )
+                fetcher.scrooge.bulkRemove({
+                  id: this.props.params.id,
+                  memberNames: member.name,
+                })
               }
             />
             {this.props.members.length ? (
               <AddPayment
                 members={this.props.members}
-                onSubmitPayment={payment => {
-                  fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                    ...defaults,
-                    method: 'POST',
-                    body: JSON.stringify(payment),
-                  });
-                }}
+                onSubmitPayment={payment =>
+                  fetcher.scrooge.add({
+                    ...payment,
+                    id: this.props.params.id,
+                  })
+                }
               />
             ) : null}
             <Scrooges
               scrooges={this.props.scrooges}
-              onDeleteScrooge={scrooge => {
-                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
-                  ...defaults,
-                  method: 'DELETE',
-                });
-              }}
+              onDeleteScrooge={scrooge =>
+                fetcher.scrooge.remove({
+                  id: this.props.params.id,
+                  scrooge: scrooge.id,
+                })
+              }
             />
           </Panel>
           <Panel side="right">

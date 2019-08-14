@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import theme from '../theme';
-import { Context as ExtContext } from '../helpers/ext';
+import { Context } from '../helpers/context';
 
 const Logo = () => {
-  const ext = useContext(ExtContext);
+  const { ext } = useContext(Context);
 
   return (
     <Link href="/">

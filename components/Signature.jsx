@@ -4,13 +4,11 @@ import Button from './koiki-ui/Button';
 import InputtableButton from './koiki-ui/InputtableButton';
 import Particle from '../components/Particle';
 import theme from '../theme';
-import { Context } from '../helpers/i18n';
-import { Context as ExtContext } from '../helpers/ext';
+import { Context } from '../helpers/context';
 
 const Signature = (props) => {
   const [clicked, setClicked] = useState(false);
-  const i18n = useContext(Context);
-  const ext = useContext(ExtContext);
+  const { i18n, ext } = useContext(Context);
 
   return (
     <header className="signature">

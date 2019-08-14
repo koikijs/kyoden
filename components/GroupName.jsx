@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 
 import theme from '../theme';
 import Input from './koiki-ui/Input';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const GroupName = ({ name, onSubmit = () => {} }) => {
-  const i18n = useContext(Context);
+  const { i18n } = useContext(Context);
   const [editing, setEditing] = useState(false);
   return (
     <>

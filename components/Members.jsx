@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 
 import theme from '../theme';
 import Chips from './koiki-ui/Chips';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const Members = (props) => {
-  const i18n = useContext(Context);
+  const { i18n } = useContext(Context);
   const [suggests, setSuggests] = useState([]);
 
   return (

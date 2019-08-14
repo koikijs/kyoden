@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import theme from '../theme';
 import Input from './koiki-ui/Input';
 import Selectbox from './koiki-ui/Selectbox';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const AddPayment = (props) => {
-  const i18n = useContext(Context);
+  const { i18n } = useContext(Context);
   const defaultPayment = {
     member: {
       text: props.members[0].name,

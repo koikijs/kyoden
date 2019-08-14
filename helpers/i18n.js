@@ -1,4 +1,3 @@
-import React from 'react';
 import acceptLanguage from 'accept-language';
 
 const resources = {};
@@ -34,11 +33,3 @@ export function get({ headers }) {
     'Unexpected condition. req is needed for SSR, otherwise window object should be exists',
   );
 }
-
-export const Context = React.createContext({
-  t: () => '',
-  resource: {},
-  lang: 'en',
-});
-
-export const { Provider, Consumer } = Context;

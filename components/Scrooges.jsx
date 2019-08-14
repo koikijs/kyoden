@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
 import theme from '../theme';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const Scrooges = (props) => {
-  const i18n = useContext(Context);
+  const { i18n } = useContext(Context);
 
   return (
     <>

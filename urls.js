@@ -5,12 +5,8 @@ const base = normalize(`${config.api.host}:${config.api.port}`);
 
 export default {
   event: {
-    gets: {
-      ws: '/events/:id',
-      method: 'GET',
-    },
     save: {
-      url: `${base}/events`,
+      url: `${base}/events/_create`,
       method: 'POST',
       mode: 'cors',
       credentials: 'include',
@@ -24,40 +20,49 @@ export default {
       credentials: 'include',
     },
     remove: {
-      url: `${base}/events/:id/groups/:group`,
+      url: `${base}/groups/:group`,
       method: 'DELETE',
       mode: 'cors',
       credentials: 'include',
     },
-    update: {
-      url: `${base}/events/:id/groups/:group`,
+    updateName: {
+      url: `${base}/groups/:group/_updateName`,
       method: 'PATCH',
       mode: 'cors',
       credentials: 'include',
     },
+    addMember: {
+      url: `${base}/groups/:group/_addMemberName`,
+      method: 'PATCH',
+      mode: 'cors',
+      credentials: 'include',
+      // values
+      // { memberName: "hoge" }
+    },
+    removeMember: {
+      url: `${base}/groups/:group/_removeMemberName`,
+      method: 'PATCH',
+      mode: 'cors',
+      credentials: 'include',
+      // values
+      // { memberName: "hoge" }
+    },
   },
   scrooge: {
     add: {
-      url: `${base}/events/:id/scrooges`,
+      url: `${base}/groups/:group/scrooges`,
       method: 'POST',
       mode: 'cors',
       credentials: 'include',
     },
     update: {
-      url: `${base}/events/:id/scrooges/:scrooge`,
+      url: `${base}/scrooges/:scrooge`,
       method: 'PATCH',
       mode: 'cors',
       credentials: 'include',
     },
-    bulkRemove: {
-      url: `${base}/events/:id/scrooges`,
-      method: 'DELETE',
-      mode: 'cors',
-      credentials: 'include',
-      useQuery: true,
-    },
     remove: {
-      url: `${base}/events/:id/scrooges/:scrooge`,
+      url: `${base}/scrooges/:scrooge`,
       method: 'DELETE',
       mode: 'cors',
       credentials: 'include',

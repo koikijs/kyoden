@@ -18,7 +18,7 @@ const initialState = {
         id: '',
         name: '',
         scrooges: [],
-        members: [],
+        memberNames: [],
       },
     ],
   },
@@ -26,22 +26,12 @@ const initialState = {
     id: '',
     name: '',
     scrooges: [],
-    members: [],
+    memberNames: [],
   },
   loaded: false,
   loading: false,
   selectedGroup: undefined,
 };
-
-const getMembers = scrooges => _.uniqBy(
-  scrooges
-    .filter(amount => amount.paidAmount === 0)
-    .map(amount => ({
-      id: amount.memberName,
-      name: amount.memberName,
-    })),
-  'id',
-) || [];
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -51,28 +41,17 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       };
     case GET_SUCCESS: {
-      // TODO: Remove inject code to add groups after API implemented v2
-      const item = {
-        ...action.body.item,
-        transferAmounts: (action.body.item.transferAmounts || []).filter(amount => amount.amount),
-        groups: [
-          { id: 'corona-fes', name: 'Corona Fes', scrooges: action.body.item.scrooges },
-          { id: 'iida-x-nab', name: 'Iida x Nab', scrooges: [] },
-        ],
-      };
-
       const selected = state.selected.id
-        ? item.groups.find(group => group.id === state.selected.id)
-        : item.groups[0];
+        ? action.item.groups.find(group => group.id === state.selected.id)
+        : action.item.groups[0];
       return {
         ...state,
         loading: false,
         loaded: true,
-        item,
+        item: action.item,
         selected: {
           ...selected,
           scrooges: selected.scrooges.filter(scrooge => scrooge.paidAmount),
-          members: getMembers(selected.scrooges),
         },
       };
     }
@@ -83,7 +62,6 @@ export default function reducer(state = initialState, action = {}) {
         selected: {
           ...selected,
           scrooges: selected.scrooges.filter(scrooge => scrooge.paidAmount),
-          members: getMembers(selected.scrooges),
         },
       };
     }

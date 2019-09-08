@@ -22,7 +22,7 @@ class MyApp extends App {
     });
     const fetcher = new Fetcher({
       client,
-      dispatch: ctx.reduxStore.dispatch,
+      dispatch: ctx.store.dispatch,
       urls,
       type: 'server',
     });
@@ -42,7 +42,7 @@ class MyApp extends App {
 
   render() {
     const {
-      Component, pageProps, reduxStore, headers, ext, origin,
+      Component, pageProps, store, headers, ext, origin,
     } = this.props;
     const i18n = get({ headers });
     const client = new ApiClient({
@@ -51,7 +51,7 @@ class MyApp extends App {
     });
     const fetcher = new Fetcher({
       client,
-      dispatch: reduxStore.dispatch,
+      dispatch: store.dispatch,
       urls,
       type: 'server',
     });
@@ -65,7 +65,7 @@ class MyApp extends App {
         }}
       >
         <Container>
-          <Provider store={reduxStore}>
+          <Provider store={store}>
             <div className="app">
               <Component {...pageProps} />
               <style jsx>

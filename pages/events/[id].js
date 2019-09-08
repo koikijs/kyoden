@@ -36,7 +36,7 @@ class Event extends Component {
   componentDidMount() {
     this.props.getStart();
     this.ws = ws({
-      url: `wss://${config.ws.origin}/?${this.props.params.id}`,
+      url: `wss://${config.ws.origin}/events?${this.props.params.id}`,
       onmessage: json => this.props.get(json),
     });
   }
@@ -90,7 +90,6 @@ class Event extends Component {
               }
               onClickDelete={tab =>
                 fetcher.group.remove({
-                  id: this.props.params.id,
                   group: tab.id,
                 })
               }
@@ -104,8 +103,7 @@ class Event extends Component {
             <GroupName
               name={this.props.selected.name}
               onSubmit={name =>
-                fetcher.group.update({
-                  id: this.props.params.id,
+                fetcher.group.updateName({
                   group: this.props.selected.id,
                   name,
                 })
@@ -113,28 +111,27 @@ class Event extends Component {
             />
             <Members
               suggests={this.props.suggests}
-              members={this.props.members}
+              memberNames={this.props.memberNames}
               onSelectMember={member =>
-                fetcher.scrooge.add({
-                  id: this.props.params.id,
+                fetcher.group.addMember({
+                  group: this.props.selected.id,
                   memberName: member.name,
-                  paidAmount: 0,
                 })
               }
               onDeleteMember={member =>
-                fetcher.scrooge.bulkRemove({
-                  id: this.props.params.id,
+                fetcher.group.removeMember({
+                  group: this.props.selected.id,
                   memberNames: member.name,
                 })
               }
             />
-            {this.props.members.length ? (
+            {this.props.memberNames.length ? (
               <AddPayment
-                members={this.props.members}
+                memberNames={this.props.memberNames}
                 onSubmitPayment={payment =>
                   fetcher.scrooge.add({
                     ...payment,
-                    id: this.props.params.id,
+                    group: this.props.selected.id,
                   })
                 }
               />
@@ -143,7 +140,6 @@ class Event extends Component {
               scrooges={this.props.scrooges}
               onDeleteScrooge={scrooge =>
                 fetcher.scrooge.remove({
-                  id: this.props.params.id,
                   scrooge: scrooge.id,
                 })
               }
@@ -167,7 +163,7 @@ const connected = connect(
     eventName: state.event.item.name,
     isLoading: state.event.loading,
     transferAmounts: state.event.item.transferAmounts,
-    members: state.event.selected.members,
+    memberNames: state.event.selected.memberNames,
     scrooges: state.event.selected.scrooges,
     selected: state.event.selected,
     groups: state.event.item.groups,

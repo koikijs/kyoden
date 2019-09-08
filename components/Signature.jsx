@@ -104,6 +104,7 @@ const Signature = (props) => {
           onSubmit={(evt) => {
             props.onEventSubmit({
               name: evt.target.value,
+              transferCurrency: 'JPY',
             });
           }}
           onChange={(evt) => {

@@ -8,8 +8,8 @@ const AddPayment = (props) => {
   const { i18n } = useContext(Context);
   const defaultPayment = {
     member: {
-      text: props.members[0].name,
-      value: props.members[0].id,
+      text: props.memberNames[0].name,
+      value: props.memberNames[0].id,
     },
     paidAmount: '',
     forWhat: '',
@@ -80,7 +80,7 @@ const AddPayment = (props) => {
             })
             }
             selected={payment.member}
-            options={props.members.map(member => ({
+            options={props.memberNames.map(member => ({
               text: member.name,
               value: member.id,
             }))}

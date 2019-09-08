@@ -16,11 +16,11 @@ const appHost = process.env.GLOBAL_HOST || 'localhost';
 const appPort = Number(process.env.GLOBAL_PORT || 3000);
 const base = normalize(`${appHost}:${appPort}`);
 const api = {
-  host: 'koiki-scrooge.herokuapp.com',
+  host: 'koiki-scrooge-v2.herokuapp.com',
   port: 443,
 };
 const ws = {
-  origin: 'koiki-scrooge.herokuapp.com',
+  origin: 'koiki-scrooge-v2.herokuapp.com',
   port: 443,
 };
 
@@ -83,5 +83,5 @@ module.exports = Object.assign(
       },
     },
   },
-  environment
+  environment,
 );

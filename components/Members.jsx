@@ -49,7 +49,7 @@ const Members = (props) => {
           onSelect={props.onSelectMember}
           onDelete={props.onDeleteMember}
           suggests={suggests}
-          chips={props.members}
+          chips={props.memberNames}
         />
       </div>
     </>

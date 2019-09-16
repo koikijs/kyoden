@@ -123,6 +123,7 @@ const Signature = (props) => {
             onClick={(evt) => {
               props.onEventSubmit({
                 name: props.eventName,
+                transferCurrency: 'JPY',
               });
             }}
           />

@@ -121,7 +121,7 @@ class Event extends Component {
               onDeleteMember={member =>
                 fetcher.group.removeMember({
                   group: this.props.selected.id,
-                  memberNames: member.name,
+                  memberName: member.name,
                 })
               }
             />
@@ -131,6 +131,7 @@ class Event extends Component {
                 onSubmitPayment={payment =>
                   fetcher.scrooge.add({
                     ...payment,
+                    currency: 'JPY',
                     group: this.props.selected.id,
                   })
                 }
@@ -163,7 +164,10 @@ const connected = connect(
     eventName: state.event.item.name,
     isLoading: state.event.loading,
     transferAmounts: state.event.item.transferAmounts,
-    memberNames: state.event.selected.memberNames,
+    memberNames: state.event.selected.memberNames.map(memberName => ({
+      id: memberName,
+      name: memberName,
+    })),
     scrooges: state.event.selected.scrooges,
     selected: state.event.selected,
     groups: state.event.item.groups,

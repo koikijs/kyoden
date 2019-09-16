@@ -11,4 +11,5 @@ export default {
   amount: 'Amount',
   reason: 'Reason',
   'tell-me-group-name': 'Tell me group Name',
+  add: 'Add',
 };

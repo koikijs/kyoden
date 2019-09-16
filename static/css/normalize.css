@@ -11,6 +11,7 @@ html {
   font-family: 'Roboto', sans-serif; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  background-color: #222222;
 }
 
 /**
@@ -444,4 +445,13 @@ input[type=number]::-webkit-outer-spin-button {
 html,body, div#__next, div#__next > div{
   height: 100%;
   width: 100%;
+}
+
+html .ptr--text,
+html .ptr--icon {
+  color: #fffffc;
+}
+
+html .ptr--ptr {
+  background-color: #7D7D7D;
 }

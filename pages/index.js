@@ -27,11 +27,11 @@ const Home = (props) => {
           props.changeEvent(values);
         }}
         onEventSubmit={(values) => {
-          fetcher.event.save(values).then(({ res }) => {
+          fetcher.event.save(values).then(({ body }) => {
             // TODO change way to get id
             // koiki better to fetch URL if location header has response.
             // then the body need to pass in callback
-            const id = res.headers.get('location').match(/\/events\/(.+)$/)[1];
+            const { id } = body;
             Router.push('/events/[id]', stringify(uris.pages.event, { id }));
           });
         }}

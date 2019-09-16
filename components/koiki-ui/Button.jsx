@@ -79,8 +79,10 @@ class Button extends Component {
               position: absolute;
               border: none;
               border-radius: 3px;
-              background-color: ${theme.color.light};
-              color: ${theme.color.lightSecondary};
+              background-color: ${this.props.primary
+            ? theme.color.light
+            : theme.color.lightSecondary};
+              color: ${this.props.primary ? theme.color.lightSecondary : theme.color.light};
               font-size: 1.25em;
               height: 2em;
               padding: 0px 20px;
@@ -92,7 +94,6 @@ class Button extends Component {
               transition-property: background-color;
               transition-duration: 1s;
               outline: none;
-              box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
               cursor: pointer;
             }
 
@@ -116,7 +117,7 @@ class Button extends Component {
               background-color: #dcdddd;
               color: #fffffc;
               transition-property: color, background-color;
-              transition-duration: 1s;
+              transition-duration: 0.2s;
             }
           `}
         </style>

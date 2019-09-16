@@ -6,7 +6,7 @@ export default {
     darkWithOpacity: '#222222cc',
     light: '#fffffc',
     lightPrimary: '#4c4900',
-    lightSecondary: '#BF783A',
+    lightSecondary: '#89562a',
     lightWithOpacity: '#fffffccc',
   },
   media: {

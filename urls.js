@@ -7,6 +7,7 @@ export default {
   event: {
     save: {
       url: `${base}/events/_create`,
+      // url: 'https://koiki-scrooge.herokuapp.com/events',
       method: 'POST',
       mode: 'cors',
       credentials: 'include',

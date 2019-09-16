@@ -9,25 +9,20 @@ const SAVE_FAIL = 'event/SAVE_FAIL';
 const CHANGE = 'event/CHANGE';
 const SELECT_GROUP = 'event/SELECT_GROUP';
 
+const DEFAULT_GROUP = {
+  id: '',
+  name: '',
+  scrooges: [],
+  memberNames: [],
+};
+
 const initialState = {
   item: {
     name: '',
     transferAmounts: [],
-    groups: [
-      {
-        id: '',
-        name: '',
-        scrooges: [],
-        memberNames: [],
-      },
-    ],
+    groups: [Object.assign({}, DEFAULT_GROUP)],
   },
-  selected: {
-    id: '',
-    name: '',
-    scrooges: [],
-    memberNames: [],
-  },
+  selected: Object.assign({}, DEFAULT_GROUP),
   loaded: false,
   loading: false,
   selectedGroup: undefined,
@@ -41,17 +36,25 @@ export default function reducer(state = initialState, action = {}) {
         loading: true,
       };
     case GET_SUCCESS: {
-      const selected = state.selected.id
-        ? action.item.groups.find(group => group.id === state.selected.id)
-        : action.item.groups[0];
+      const selected = action.body.item.groups.find(
+        group => state.selected.id && group.id === state.selected.id,
+      )
+        || action.body.item.groups[0]
+        || Object.assign({}, DEFAULT_GROUP);
       return {
         ...state,
         loading: false,
         loaded: true,
-        item: action.item,
+        item: {
+          ...action.body.item,
+          transferAmounts: action.body.item.groups.map(group => group.transferAmounts).flat(),
+        },
         selected: {
           ...selected,
-          scrooges: selected.scrooges.filter(scrooge => scrooge.paidAmount),
+          scrooges:
+            selected && selected.scrooges
+              ? selected.scrooges.filter(scrooge => scrooge.paidAmount)
+              : [],
         },
       };
     }

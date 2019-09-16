@@ -35,15 +35,19 @@ const Tabs = ({
             }}
           >
             <span>{tab.text}</span>
-            <button
-              aria-label="delete"
-              onClick={(evt) => {
-                evt.preventDefault();
-                onClickDelete(tab);
-              }}
-            >
-              <i className="fa fa-trash" />
-            </button>
+            {tabs.length > 1 ? (
+              <button
+                aria-label="delete"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  if (tab.isActive) {
+                    onClickDelete(tab);
+                  }
+                }}
+              >
+                <i className="fa fa-trash" />
+              </button>
+            ) : null}
           </li>
         ))}
         <li

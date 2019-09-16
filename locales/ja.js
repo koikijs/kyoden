@@ -11,4 +11,5 @@ export default {
   amount: '金額',
   reason: '理由',
   'tell-me-group-name': 'グループ名',
+  add: '追加',
 };

@@ -34,12 +34,14 @@ class Chips extends Component {
 
   render() {
     const select = (suggest) => {
-      this.props.onSelect(suggest);
-      this.setState({
-        query: '',
-        display: false,
-        focusedIndex: 0,
-      });
+      if (this.state.query) {
+        this.props.onSelect(suggest);
+        this.setState({
+          query: '',
+          display: false,
+          focusedIndex: 0,
+        });
+      }
     };
     return (
       <div className={this.props.className}>
@@ -52,6 +54,7 @@ class Chips extends Component {
           ref={(elem) => {
             this.input = elem;
           }}
+          hasAddButton
           icon={this.props.icon}
           placeholder={this.props.placeholder}
           value={this.state.query}
@@ -139,6 +142,7 @@ class Chips extends Component {
                 item={tag}
                 onClick={tag => this.props.onDelete(tag)}
                 type="delete"
+                hoverToDisplay={false}
               />
             </li>
           ))}

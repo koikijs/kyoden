@@ -34,7 +34,7 @@ const Scrooges = (props) => {
       <style jsx>
         {`
           .table {
-            width: 70%;
+            width: 80%;
             font-size: 1.25em;
             line-height: 1.5em;
             border-collapse: separate;

@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import theme from '../theme';
 import Chips from './koiki-ui/Chips';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const Members = (props) => {
-  const i18n = useContext(Context);
+  const { i18n } = useContext(Context);
+  const [suggests, setSuggests] = useState([]);
 
   return (
     <>
@@ -20,8 +21,7 @@ const Members = (props) => {
           }
           .members {
             width: 80%;
-            margin-bottom: 3em;
-            margin-top: 8em;
+            margin-bottom: 2em;
           }
 
           @media (max-width: 768px) {
@@ -40,14 +40,16 @@ const Members = (props) => {
           {i18n.t('attendees')}
         </p>
         <Chips
-          focused
           icon="fa-user"
           placeholder={i18n.t('tell-me-attendee-name')}
-          onChange={event => props.onChangeInputName(event.target.value)}
+          onChange={event => setSuggests(
+            event.target.value ? [{ id: event.target.value, name: event.target.value }] : [],
+          )
+          }
           onSelect={props.onSelectMember}
           onDelete={props.onDeleteMember}
-          suggests={props.suggests}
-          chips={props.members}
+          suggests={suggests}
+          chips={props.memberNames}
         />
       </div>
     </>

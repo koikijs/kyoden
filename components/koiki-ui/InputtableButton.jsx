@@ -68,6 +68,7 @@ class InputtableButton extends Component {
           ref={(elem) => {
             this.inputDOM = elem;
           }}
+          type="text"
           className={this.props.styles.inputtableButton.input}
           placeholder={this.props.placeholder}
           autoFocus={this.props.focused}
@@ -82,6 +83,7 @@ class InputtableButton extends Component {
               default:
             }
           }}
+          aria-label={this.props.placeholder}
           onChange={evt => this.props.onChange(evt)}
           onBlur={evt => blur(evt)}
         />

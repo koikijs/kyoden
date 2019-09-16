@@ -1,6 +1,8 @@
 import React from 'react';
 
-const IconButton = ({ item, onClick, type, styles }) => (
+const IconButton = ({
+  item, onClick, type, styles, hoverToDisplay,
+}) => (
   <button
     className={styles.iconButton.item}
     key={item.id}
@@ -10,7 +12,10 @@ const IconButton = ({ item, onClick, type, styles }) => (
     {item.image ? (
       <img className={styles.iconButton.icon} alt={item.name} src={item.image} />
     ) : null}
-    <div className={styles.iconButton.text}>{item.name}</div>
+    <div className={styles.iconButton.text}>
+      {item.name}
+      {!hoverToDisplay ? <i className={`fa ${type === 'add' ? 'fa-plus' : 'fa-trash'}`} /> : null}
+    </div>
     <div className={styles.iconButton[type]}>
       <i className={`fa ${type === 'add' ? 'fa-plus' : 'fa-trash'}`} />
     </div>
@@ -21,6 +26,7 @@ IconButton.defaultProps = {
   styles: {
     iconButton: require('./less/icon-button.less'),
   },
+  hoverToDisplay: true,
   onClick: () => {},
 };
 

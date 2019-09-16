@@ -4,11 +4,11 @@ import Button from './koiki-ui/Button';
 import InputtableButton from './koiki-ui/InputtableButton';
 import Particle from '../components/Particle';
 import theme from '../theme';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const Signature = (props) => {
   const [clicked, setClicked] = useState(false);
-  const i18n = useContext(Context);
+  const { i18n, ext } = useContext(Context);
 
   return (
     <header className="signature">
@@ -93,7 +93,7 @@ const Signature = (props) => {
         `}
       </style>
       <h1 className="lead">
-        <img className="logo" src="/static/images/logo.png" alt={props.lead} />
+        <img className="logo" src={`/static/images/logo.${ext}`} alt={props.lead} />
       </h1>
       <h2 className="sublead">{props.sublead}</h2>
       <div className="button large">
@@ -104,6 +104,7 @@ const Signature = (props) => {
           onSubmit={(evt) => {
             props.onEventSubmit({
               name: evt.target.value,
+              transferCurrency: 'JPY',
             });
           }}
           onChange={(evt) => {
@@ -122,6 +123,7 @@ const Signature = (props) => {
             onClick={(evt) => {
               props.onEventSubmit({
                 name: props.eventName,
+                transferCurrency: 'JPY',
               });
             }}
           />

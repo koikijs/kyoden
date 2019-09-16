@@ -5,7 +5,8 @@ import theme from '../theme';
 const Title = props => (
   <div className={`title ${props.theme} ${props.align} ${props.title ? 'animate' : ''}`}>
     {props.title}
-    <style jsx>{`
+    <style jsx>
+      {`
       .title {
         font-size: 3em;
         margin: 1em 0;
@@ -65,7 +66,7 @@ const Title = props => (
       @media (max-width: ${theme.media.screenSpMin}) {
         .title {
           font-size: 2em;
-          max-width: 90%;
+          max-width: 80%;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -80,7 +81,8 @@ const Title = props => (
           display: none;
         }
       }
-    `}</style>
+    `}
+    </style>
   </div>
 );
 

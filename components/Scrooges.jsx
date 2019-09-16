@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 
 import theme from '../theme';
-import { Context } from '../helpers/i18n';
+import { Context } from '../helpers/context';
 
 const Scrooges = (props) => {
-  const i18n = useContext(Context);
+  const { i18n } = useContext(Context);
 
   return (
     <>
@@ -19,7 +19,11 @@ const Scrooges = (props) => {
               </td>
               <td className="reason">{scrooge.forWhat}</td>
               <td className="delete">
-                <button className="trash" onClick={() => props.onDeleteScrooge(scrooge)}>
+                <button
+                  aria-label="delete"
+                  className="trash"
+                  onClick={() => props.onDeleteScrooge(scrooge)}
+                >
                   <i className="fa fa-trash" />
                 </button>
               </td>
@@ -30,7 +34,7 @@ const Scrooges = (props) => {
       <style jsx>
         {`
           .table {
-            width: 70%;
+            width: 80%;
             font-size: 1.25em;
             line-height: 1.5em;
             border-collapse: separate;

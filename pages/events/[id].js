@@ -1,25 +1,30 @@
 import React, { Component, useContext } from 'react';
 import Head from 'next/head';
+import animals from 'animals';
 import { useRouter } from 'next/router';
 import { connect } from 'react-redux';
 import ws from '../../helpers/ws';
 import config from '../../config';
-import { get, getStart } from '../../reducers/event';
-import { changeInputName } from '../../reducers/member';
-import {
-  input as inputScrooge,
-  markAsRemoved as markAsRemovedScrooge,
-  reset as resetScrooge,
-} from '../../reducers/scrooge';
+import { get, getStart, selectGroup } from '../../reducers/event';
 import Panel from '../../components/Panel';
 import Logo from '../../components/Logo';
 import Title from '../../components/Title';
+import GroupName from '../../components/GroupName';
 import Members from '../../components/Members';
 import Scrooges from '../../components/Scrooges';
 import AddPayment from '../../components/AddPayment';
 import TransferPayments from '../../components/TransferPayments';
 import Loading from '../../components/Loading';
-import { Context } from '../../helpers/i18n';
+import Tabs from '../../components/Tabs';
+import { Context } from '../../helpers/context';
+
+const defaults = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  mode: 'cors',
+  credentials: 'include',
+};
 
 class Event extends Component {
   static async getInitialProps({ query }) {
@@ -31,7 +36,7 @@ class Event extends Component {
   componentDidMount() {
     this.props.getStart();
     this.ws = ws({
-      url: `wss://${config.ws.origin}/?${this.props.params.id}`,
+      url: `wss://${config.ws.origin}/events?${this.props.params.id}`,
       onmessage: json => this.props.get(json),
     });
   }
@@ -41,25 +46,13 @@ class Event extends Component {
   }
 
   render() {
-    const i18n = this.context;
-
+    const { i18n, fetcher } = this.context;
     return (
       <>
         <Head>
           <title>
             {this.props.eventName ? `${this.props.eventName} - ${i18n.t('lead')}` : i18n.t('lead')}
           </title>
-          <meta name="description" content="kyoden" />
-          <meta charSet="utf-8" />
-          <meta property="og:site_name" content="kyoden" />
-          <meta property="og:image" content="/static/images/favicon.png" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:title" content="kyoden" />
-          <meta property="og:description" content="kyoden" />
-          <meta property="og:card" content="summary" />
-          <meta property="og:creator" content="koiki" />
-          <meta property="og:image:width" content="300" />
-          <meta property="og:image:height" content="300" />
         </Head>
         <style jsx>
           {`
@@ -79,79 +72,78 @@ class Event extends Component {
             }
           `}
         </style>
-        <div className="panels">
+        <main className="panels">
           <Panel side="left">
             <Logo />
             <Title title={this.props.eventName} theme="black" align="left" />
+            <Tabs
+              tabs={this.props.groups.map(group => ({
+                id: group.id,
+                text: group.name,
+                isActive: group.id === this.props.selected.id,
+              }))}
+              onClickTab={tab =>
+                this.props.selectGroup({
+                  id: tab.id,
+                  name: tab.text,
+                })
+              }
+              onClickDelete={tab =>
+                fetcher.group.remove({
+                  group: tab.id,
+                })
+              }
+              onClickAdd={() =>
+                fetcher.group.add({
+                  id: this.props.params.id,
+                  name: animals(),
+                })
+              }
+            />
+            <GroupName
+              name={this.props.selected.name}
+              onSubmit={name =>
+                fetcher.group.updateName({
+                  group: this.props.selected.id,
+                  name,
+                })
+              }
+            />
             <Members
               suggests={this.props.suggests}
-              members={this.props.members}
-              onChangeInputName={this.props.changeInputName}
+              memberNames={this.props.memberNames}
               onSelectMember={member =>
-                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  method: 'POST',
-                  mode: 'cors',
-                  credentials: 'include',
-                  body: JSON.stringify({
-                    memberName: member.name,
-                    paidAmount: 0,
-                  }),
+                fetcher.group.addMember({
+                  group: this.props.selected.id,
+                  memberName: member.name,
                 })
               }
               onDeleteMember={member =>
-                fetch(
-                  `${config.api.base}/events/${
-                    this.props.params.id
-                  }/scrooges?memberNames=${encodeURIComponent(member.name)}`,
-                  {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    method: 'DELETE',
-                    mode: 'cors',
-                    credentials: 'include',
-                  },
-                )
+                fetcher.group.removeMember({
+                  group: this.props.selected.id,
+                  memberName: member.name,
+                })
               }
             />
-            {this.props.members.length ? (
+            {this.props.memberNames.length ? (
               <AddPayment
-                scrooge={this.props.scrooge}
-                members={this.props.members}
-                onInputPayment={this.props.inputScrooge}
-                onSubmitPayment={() => {
-                  fetch(`${config.api.base}/events/${this.props.params.id}/scrooges`, {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    mode: 'cors',
-                    credentials: 'include',
-                    body: JSON.stringify({
-                      ...this.props.scrooge,
-                      memberName: this.props.scrooge.memberName || this.props.members[0].id,
-                    }),
-                  });
-                  this.props.resetScrooge();
-                }}
+                memberNames={this.props.memberNames}
+                onSubmitPayment={payment =>
+                  fetcher.scrooge.add({
+                    ...payment,
+                    currency: 'JPY',
+                    group: this.props.selected.id,
+                  })
+                }
               />
             ) : null}
             <Scrooges
               scrooges={this.props.scrooges}
-              onDeleteScrooge={scrooge => {
-                this.props.markAsRemovedScrooge(scrooge);
-                fetch(`${config.api.base}/events/${this.props.params.id}/scrooges/${scrooge.id}`, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  method: 'DELETE',
-                  mode: 'cors',
-                  credentials: 'include',
-                });
-              }}
+              onDeleteScrooge={scrooge =>
+                fetcher.scrooge.remove({
+                  scrooge: scrooge.id,
+                })
+              }
             />
           </Panel>
           <Panel side="right">
@@ -160,7 +152,7 @@ class Event extends Component {
               <TransferPayments transferAmounts={this.props.transferAmounts} />
             ) : null}
           </Panel>
-        </div>
+        </main>
         <Loading isActive={this.props.isLoading} />
       </>
     );
@@ -171,19 +163,18 @@ const connected = connect(
   state => ({
     eventName: state.event.item.name,
     isLoading: state.event.loading,
-    aggPaidAmount: state.event.item.aggPaidAmount,
-    transferAmounts: (state.event.item.transferAmounts || []).filter(amount => amount.amount),
-    members: state.member.items,
-    suggests: state.member.suggests,
-    scrooge: state.scrooge.item,
-    scrooges: state.scrooge.items,
+    transferAmounts: state.event.item.transferAmounts,
+    memberNames: state.event.selected.memberNames.map(memberName => ({
+      id: memberName,
+      name: memberName,
+    })),
+    scrooges: state.event.selected.scrooges,
+    selected: state.event.selected,
+    groups: state.event.item.groups,
   }),
   {
     get,
-    changeInputName,
-    inputScrooge,
-    markAsRemovedScrooge,
-    resetScrooge,
+    selectGroup,
     getStart,
   },
 )(Event);
